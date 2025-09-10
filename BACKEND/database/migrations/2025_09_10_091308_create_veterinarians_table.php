@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('veterinarians', function (Blueprint $table) {
-            $table->id();
+            $table->id('vet_id');
+            $table->string('name',100);
+            $table->string('email',100);
+            $table->string('password_hash',255);
+            $table->string('address',255);
+            $table->text('note');
+            $table->string('img_url',255);
+            $table->string('phonenumber',255);
             $table->timestamps();
         });
     }

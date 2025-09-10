@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('animalshelters', function (Blueprint $table) {
-            $table->id();
+            $table->id('shelter_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('password_hash');
+            $table->string('address');
+            $table->string('img_url');
+            $table->string('phonenumber');
             $table->timestamps();
         });
     }
