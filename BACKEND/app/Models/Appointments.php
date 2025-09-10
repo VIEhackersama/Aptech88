@@ -23,17 +23,17 @@ class Appointments extends Model
         'appointment_time' => 'datetime',
     ];
 
-    public function pet()
+    public function pets()
     {
         return $this->belongsTo(Pets::class, 'pet_id', 'pet_id');
     }
 
-    public function owner()
+    public function owners()
     {
         return $this->belongsTo(Owners::class, 'owner_id', 'owner_id');
     }
 
-    public function vet()
+    public function veterinarians()
     {
         return $this->belongsTo(Veterinarians::class, 'vet_id', 'vet_id');
     }
