@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+@layer utilities {
+  .animate-fade-in-up {
+    @apply opacity-0 translate-y-4;
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ===== GOLD GLOW ANIMATION ===== */
+@keyframes gold-glow {
+  0%   { box-shadow: 0 0 0 rgba(255,199,44,0.00); }
+  50%  { box-shadow: 0 0 18px rgba(255,199,44,0.45); }
+  100% { box-shadow: 0 0 0 rgba(255,199,44,0.00); }
+}
+
+@layer utilities {
+  .animate-gold-glow {
+    animation: gold-glow 1.4s ease-in-out infinite;
+  }
+}
+
+/* ===== REUSABLE BUTTONS ===== */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  .btn-primary {
+    @apply bg-blue-600 text-white border border-yellow-300 shadow;
+  }
+  .btn-primary:hover {
+    @apply bg-blue-700 shadow-[0_8px_20px_rgba(255,199,44,0.25)] border-yellow-400;
+  }
+
+  .btn-outline {
+    @apply bg-white text-blue-900 border border-yellow-400;
+  }
+  .btn-outline:hover {
+    @apply shadow-[0_8px_20px_rgba(255,199,44,0.25)] border-yellow-500;
+  }
+}
+
