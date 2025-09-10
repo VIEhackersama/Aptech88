@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('img_url', 255);
             $table->timestamps();
             $table->foreign(columns: 'shelter_id')->references('shelter_id')->on('animalshelters')->onDelete('cascade');
-
         });
     }
 
