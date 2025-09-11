@@ -8,7 +8,7 @@ interface Props {
 }
 
 
-const AnimalCard: React.FC<Props> = ({ animal }) => {
+function AnimalCard({ animal }: Props) {
     return (
         <div className="bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col">
             <img

@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Events: React.FC = () => {
+function Events() {
     const events = [
         { id: 1, title: 'Adoption Day', date: '2025-09-20', description: 'Meet adoptable pets at our shelter.' },
         { id: 2, title: 'Fundraising Gala', date: '2025-10-15', description: 'Support animal welfare programs.' },

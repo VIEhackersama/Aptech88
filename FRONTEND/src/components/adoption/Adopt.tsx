@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import AnimalCard from '../adoption/AnimalCard';
-import Pagination from '../adoption/Pagination';
-import { Animal } from '../adoption/type';
+import AnimalCard from './AnimalCard';
+import Pagination from './Pagination';
+import { Animal } from './type';
 
 
 const mockAnimals: Animal[] = [
     { id: '1', name: 'Bella', species: 'Dog', age: 2, gender: 'Female', breed: 'Husky', image: '' },
     { id: '2', name: 'Max', species: 'Cat', age: 3, gender: 'Male', breed: 'Ragdoll', image: '' },
-    { id: '3', name: 'Luna', species: 'Rabbit', age: 1, gender: 'Female', breed: 'Pomerian', image: '' },
+    { id: '3', name: 'Luna', species: 'Dog', age: 1, gender: 'Female', breed: 'Pomerian', image: '' },
 ];
 
 
-const Adopt: React.FC = () => {
+function Adopt() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
     const totalPages = Math.ceil(mockAnimals.length / itemsPerPage);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ImageUploader from '../adoption/ImageUploader';
+import ImageUploader from './ImageUploader';
 
 
-const Surrender: React.FC = () => {
+function Surrender() {
     const [image, setImage] = useState<string | null>(null);
 
 

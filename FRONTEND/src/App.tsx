@@ -6,7 +6,8 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import React from "react";
-import Adopt from "./pages/adoption/Adopt";
+import Adopt from "./components/adoption/Adopt";
+import Adoption from "./pages/Adoption";
 
 export default function App() {
   return (
@@ -18,6 +19,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/adopt" element={<Adoption />}>
+</Route>
           </Routes>
         </main>
         <Footer />

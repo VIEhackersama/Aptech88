@@ -54,7 +54,6 @@ export default function Header() {
       { name: "AnimalCard", path: "/adopt/animal-card" },
       { name: "Event", path: "/adopt/event" },
       { name: "ImUploader", path: "/adopt/im-uploader" },
-      { name: "Pagination", path: "/adopt/pagination" },
       { name: "Surrender", path: "/adopt/surrender" },
     ],
   },
