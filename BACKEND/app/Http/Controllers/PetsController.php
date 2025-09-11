@@ -3,63 +3,92 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pets;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PetsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        if ($user instanceof \App\Models\Owners) {
+
+            $pets = Pets::where('owner_id', $user->owner_id)->get();
+        } elseif ($user instanceof \App\Models\Veterinarians) {
+            $pets = Pets::all();
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($pets);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $user = Auth::user();
+        $pet = Pets::findOrFail($id);
+
+        if ($user instanceof \App\Models\Owners && $pet->owner_id !== $user->owner_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($pet);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if (!($user instanceof \App\Models\Owners)) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'species' => 'required|string|max:50',
+            'breed' => 'required|string|max:50',
+            'age' => 'required|integer',
+            'gender' => 'required|string|max:20',
+            'img_url' => 'nullable|string|max:255',
+        ]);
+
+        $pet = Pets::create([
+            'owner_id' => $user->owner_id,
+            'name' => $request->name,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'img_url' => $request->img_url,
+        ]);
+
+        return response()->json($pet, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pets $pets)
+    public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $pet = Pets::findOrFail($id);
+
+        if (!($user instanceof \App\Models\Owners) || $pet->owner_id !== $user->owner_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $pet->update($request->only(['name', 'species', 'breed', 'age', 'gender', 'img_url']));
+        return response()->json($pet);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pets $pets)
+    public function destroy($id)
     {
-        //
-    }
+        $user = Auth::user();
+        $pet = Pets::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pets $pets)
-    {
-        //
-    }
+        if (!($user instanceof \App\Models\Owners) || $pet->owner_id !== $user->owner_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pets $pets)
-    {
-        //
+        $pet->delete();
+        return response()->json(['message' => 'Pet deleted']);
     }
 }

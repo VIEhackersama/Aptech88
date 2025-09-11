@@ -12,9 +12,9 @@ class VeterinariansController extends Controller
      */
     public function index()
     {
-        //
+        $vets = Veterinarians::all(['vet_id', 'name', 'email', 'address', 'img_url', 'phonenumber', 'note']);
+        return response()->json($vets);
     }
-
     /**
      * Show the form for creating a new resource.
      */
