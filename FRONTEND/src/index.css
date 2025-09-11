@@ -60,3 +60,10 @@ html {
   }
 }
 
+
+
+/* hide horizontal scrollbar on overflow areas (top info bar) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
