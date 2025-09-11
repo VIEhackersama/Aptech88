@@ -11,13 +11,12 @@ export default function App() {
     <div id="top">
       <AuthProvider>
         <Header />
-        {/* Header fixed 2 tầng → chừa top padding */}
         <main id="content" className="pt-[144px] md:pt-[144px] lg:pt-[168px]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            {/* TODO: /profile, /contact, /adopt, ... */}
+            {/* Route o day nhe ae: /profile, /contact, /adopt, ... */}
           </Routes>
         </main>
         <Footer />
