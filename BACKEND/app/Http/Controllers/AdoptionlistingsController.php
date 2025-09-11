@@ -2,64 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Adoptionlistings;
 use Illuminate\Http\Request;
+use App\Models\AdoptionListings;
+use Illuminate\Support\Facades\Auth;
 
-class AdoptionlistingsController extends Controller
+class AdoptionListingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $listings = AdoptionListings::all();
+        return response()->json($listings);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $listing = AdoptionListings::findOrFail($id);
+        return response()->json($listing);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        if (!($user instanceof \App\Models\Animalshelters)) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $request->validate([
+            'pet_name' => 'required|string|max:100',
+            'species' => 'required|string|max:50',
+            'breed' => 'nullable|string|max:50',
+            'age' => 'required|integer',
+            'gender' => 'required|string|max:20',
+            'img_url' => 'nullable|string|max:255',
+        ]);
+
+        $listing = AdoptionListings::create([
+            'shelter_id' => $user->shelter_id,
+            'pet_name' => $request->pet_name,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'img_url' => $request->img_url,
+        ]);
+
+        return response()->json($listing, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Adoptionlistings $adoptionlistings)
+    public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $listing = AdoptionListings::findOrFail($id);
+
+        if (!($user instanceof \App\Models\Animalshelters) || $listing->shelter_id !== $user->shelter_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $listing->update($request->only(['pet_name', 'species', 'breed', 'age', 'gender', 'img_url']));
+        return response()->json($listing);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Adoptionlistings $adoptionlistings)
+    public function destroy($id)
     {
-        //
-    }
+        $user = Auth::user();
+        $listing = AdoptionListings::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Adoptionlistings $adoptionlistings)
-    {
-        //
-    }
+        if (!($user instanceof \App\Models\Animalshelters) || $listing->shelter_id !== $user->shelter_id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Adoptionlistings $adoptionlistings)
-    {
-        //
+        $listing->delete();
+        return response()->json(['message' => 'Listing deleted']);
     }
 }
