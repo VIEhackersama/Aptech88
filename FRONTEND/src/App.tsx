@@ -24,6 +24,7 @@ import Multimodal from "./pages/services/Multimodal";
 import Warehouse from "./pages/services/Warehouse";
 import ImportExport from "./pages/services/ImportExport";
 import Oversized from "./pages/services/Oversized";
+import VetDashboard from "./pages/VetDashboard";
 
 // Layout
 import Header from "./components/Header";
@@ -61,6 +62,7 @@ export default function App() {
         <Route path="/services/importexport" element={<ImportExport />} />
         <Route path="/services/oversized" element={<Oversized />} />
         <Route path="/services/domestic" element={<Oversized />} />
+        <Route path="/vet-dashboard" element={<VetDashboard />} />
       </Routes>
 
       <Footer />
