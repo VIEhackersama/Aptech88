@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
-import Contact from "./pages/";
+import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
 
