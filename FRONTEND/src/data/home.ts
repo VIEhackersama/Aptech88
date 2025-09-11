@@ -32,10 +32,10 @@ export const FAQS = [
 ];
 
 export const PARTNER_LOGOS = [
-  "/assets/logo1.svg",
-  "/assets/logo2.svg",
-  "/assets/logo3.svg",
-  "/assets/logo4.svg",
-  "/assets/logo5.svg",
-  "/assets/logo6.svg",
+  "/assets/bidv_logo.jpg",
+  "/assets/bidv_logo.jpg",
+  "/assets/bidv_logo.jpg",
+  "/assets/bidv_logo.jpg",
+  "/assets/bidv_logo.jpg",
+  "/assets/bidv_logo.jpg",
 ];

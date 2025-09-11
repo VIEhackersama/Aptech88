@@ -32,29 +32,41 @@ export default function Header() {
   const GREEN = { dark: "#065f46", primary: "#059669", light: "#34d399" };
 
   const navItems = [
-    { name: "Home", path: "/", children: [] },
-    {
-      name: "About Us",
-      path: "/about",
-      children: [
-        { name: "History", path: "/about#history" },
-        { name: "Vision & Mission", path: "/about#vision" },
-        { name: "Organization", path: "/about#org" },
-        { name: "Contact", path: "/about#contact" },
-      ],
-    },
-    { name: "Adopt", path: "/adopt", children: [] },
-    { 
-      name: "Care Tips", 
-      path: "/care-tips", 
-      children: [
-      { name: "Appointments", path: "/care-tips/appointments" },
-      { name: "Health Records", path: "/care-tips/health-records" },
-    ] 
+  { name: "Home", path: "/", children: [] },
+
+  {
+    name: "About Us",
+    path: "/about",
+    children: [
+      { name: "History", path: "/about#history" },
+      { name: "Vision & Mission", path: "/about#vision" },
+      { name: "Organization", path: "/about#org" },
+      { name: "Contact", path: "/about#contact" },
+    ],
   },
-    { name: "Donate", path: "/donate", children: [] },
-    { name: "Contact", path: "/contact", children: [] },
-  ];
+
+  {
+    name: "Adopt",
+    path: "/adopt",
+    children: [
+      { name: "Adopt", path: "/adopt" },
+      { name: "AdoptDetail", path: "/adopt/detail" },
+      { name: "AnimalCard", path: "/adopt/animal-card" },
+      { name: "Event", path: "/adopt/event" },
+      { name: "ImUploader", path: "/adopt/im-uploader" },
+      { name: "Surrender", path: "/adopt/surrender" },
+    ],
+  },
+
+  { name: "Care Tips", path: "/care-tips", children: [] },
+
+
+  { name: "Donate", path: "/volunteer", children: [] },
+  { name: "News", path: "/news", children: [] },
+  { name: "Shop", path: "/shop", children: [] },
+  { name: "Contact", path: "/contact", children: [] },
+];
+
 
   const initials =
     (user?.name || "")
