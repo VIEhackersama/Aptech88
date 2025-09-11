@@ -44,7 +44,14 @@ export default function Header() {
       ],
     },
     { name: "Adopt", path: "/adopt", children: [] },
-    { name: "Care Tips", path: "/care-tips", children: [] },
+    { 
+      name: "Care Tips", 
+      path: "/care-tips", 
+      children: [
+      { name: "Appointments", path: "/care-tips/appointments" },
+      { name: "Health Records", path: "/care-tips/health-records" },
+    ] 
+  },
     { name: "Donate", path: "/donate", children: [] },
     { name: "Contact", path: "/contact", children: [] },
   ];
