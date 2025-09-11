@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('healthrecords', function (Blueprint $table) {
+            $table->id('record_id');
+            $table->unsignedBigInteger('pet_id');
+            $table->unsignedBigInteger('vet_id');
+            $table->date('visit_date');
+            $table->string('diagnosis');
+            $table->string('treatment');
+            $table->timestamps();
+            $table->foreign(columns: 'pet_id')->references('pet_id')->on('pets')->onDelete('cascade');
+            $table->foreign(columns: 'vet_id')->references('vet_id')->on('veterinarians')->onDelete('cascade');
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('healthrecords');
+    }
+};
