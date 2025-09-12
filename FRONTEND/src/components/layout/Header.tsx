@@ -56,7 +56,7 @@ export default function Header() {
       { name: "Surrender", path: "/adopt/surrender" },
     ],
   },
-  { name: "Veterinarians", path: "/care-tips", children: [] },
+  { name: "Veterinarians", path: "/", children: [] },
   { name: "Contact", path: "/contact", children: [] },
 ];
 
