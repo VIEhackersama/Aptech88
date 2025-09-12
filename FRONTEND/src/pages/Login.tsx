@@ -34,12 +34,15 @@ export default function Login() {
         <div className="mx-auto max-w-md">
           <h1 className="text-3xl font-extrabold text-slate-900">Sign in</h1>
           <p className="mt-2 text-slate-600">
-            Use any email and password (demo). We’ll just remember your session on this device.
+            Use any email and password (demo). We’ll just remember your session
+            on this device.
           </p>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700">Name (optional)</label>
+              <label className="block text-sm font-medium text-slate-700">
+                Name (optional)
+              </label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -49,9 +52,13 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700">Email</label>
+              <label className="block text-sm font-medium text-slate-700">
+                Email
+              </label>
               <div className="mt-1 flex items-center rounded-xl border border-slate-200 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
-                <span className="pl-3 pr-2 text-slate-400"><Mail size={18} /></span>
+                <span className="pl-3 pr-2 text-slate-400">
+                  <Mail size={18} />
+                </span>
                 <input
                   type="email"
                   required
@@ -64,9 +71,13 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700">Password</label>
+              <label className="block text-sm font-medium text-slate-700">
+                Password
+              </label>
               <div className="mt-1 flex items-center rounded-xl border border-slate-200 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
-                <span className="pl-3 pr-2 text-slate-400"><Lock size={18} /></span>
+                <span className="pl-3 pr-2 text-slate-400">
+                  <Lock size={18} />
+                </span>
                 <input
                   type="password"
                   required
@@ -87,7 +98,13 @@ export default function Login() {
             >
               <LogIn size={18} /> {loading ? "Signing in..." : "Sign in"}
             </button>
-
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-black hover:bg-emerald-700 border border-dark"
+            >
+              Create new account
+            </button>
             <p className="text-xs text-slate-500">
               By signing in, you agree to our Terms and Privacy.
             </p>
