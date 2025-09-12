@@ -19,17 +19,23 @@ export default function App() {
     <div id="top">
       <AuthProvider>
         <Header />
-        
         <main id="content" className="pt-[144px] md:pt-[144px] lg:pt-[168px]">
           <Routes>
-            <Route path="/" element={<PetHealt />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/care-tips/appointments" element={<AppointmentsPage />} />
-            <Route path="/care-tips/health-records" element={<HealthRecordsPage />} />
+            <Route
+              path="/care-tips/appointments"
+              element={<AppointmentsPage />}
+            />
+            <Route
+              path="/care-tips/health-records"
+              element={<HealthRecordsPage />}
+            />
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
-
+            <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
+            <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
           </Routes>
         </main>
