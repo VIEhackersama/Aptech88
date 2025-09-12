@@ -1,6 +1,6 @@
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import { Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -12,6 +12,7 @@ import PetHealt from "./pageone/HealthRecords";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
+import Veterinarians from "./pages/Veterinarians";
 import Appointment from "./pageone/Appointments";
 
 export default function App() {
@@ -24,11 +25,11 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/veter/appointments" element={<AppointmentsPage />} />
-            <Route
-              path="/veter/health-records"
-              element={<HealthRecordsPage />}
-            />
+            <Route path="/veter" element={<Veterinarians />} />
+<Route path="/veter/appointments" element={<AppointmentsPage />} />
+<Route path="/veter/health-records" element={<HealthRecordsPage />} />
+           
+
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
