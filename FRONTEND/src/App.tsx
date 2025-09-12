@@ -9,7 +9,7 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
 import  PetOwners from "./pageone/PetOwners";
 import PetHealt from "./pageone/HealthRecords";
-import Contact from "./pages/Contact";
+import Contact from "./pages/adoption/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
 
