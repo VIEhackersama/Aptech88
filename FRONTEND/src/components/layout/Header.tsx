@@ -46,6 +46,7 @@ export default function Header() {
 
   {
     name: "Animal shelters",
+
     path: "/adopt",
     children: [
       { name: "Adopt", path: "/adopt" },
@@ -56,7 +57,10 @@ export default function Header() {
       { name: "Surrender", path: "/adopt/surrender" },
     ],
   },
-  { name: "Veterinarians", path: "/", children: [] },
+  { name: "Veterinarians", path: "/veter", children: [
+    { name: "Appointment", path: "/veter/appointments" },
+    { name: "Health records", path: "/veter/health-records" },
+  ] },
   { name: "Contact", path: "/contact", children: [] },
 ];
 
