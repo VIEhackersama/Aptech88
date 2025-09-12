@@ -32,29 +32,41 @@ export default function Header() {
   const GREEN = { dark: "#065f46", primary: "#059669", light: "#34d399" };
 
   const navItems = [
-    { name: "Home", path: "/", children: [] },
-    {
-      name: "About Us",
-      path: "/about",
-      children: [
-        { name: "History", path: "/about#history" },
-        { name: "Vision & Mission", path: "/about#vision" },
-        { name: "Organization", path: "/about#org" },
-        { name: "Contact", path: "/about#contact" },
-      ],
-    },
-    { name: "Adopt", path: "/adopt", children: [] },
-    { 
-      name: "Care Tips", 
-      path: "/care-tips", 
-      children: [
-      { name: "Appointments", path: "/care-tips/appointments" },
-      { name: "Health Records", path: "/care-tips/health-records" },
-    ] 
+  { name: "Home", path: "/", children: [] },
+
+  {
+    name: "Pet's owner",
+    path: "/about",
+    children: [
+      { name: "Pet profiles", path: "/about#history" },
+      { name: "Track health records", path: "/about#vision" },
+      { name: "Manage appointments", path: "/about#org" },
+    ],
   },
-    { name: "Donate", path: "/donate", children: [] },
-    { name: "Contact", path: "/contact", children: [] },
-  ];
+
+  {
+    name: "Animal shelters",
+
+    path: "/adopt",
+    children: [
+      { name: "Adopt", path: "/adopt" },
+      { name: "AdoptDetail", path: "/adopt/detail" },
+      { name: "AnimalCard", path: "/adopt/animal-card" },
+      { name: "Event", path: "/adopt/event" },
+      { name: "ImUploader", path: "/adopt/im-uploader" },
+      { name: "Surrender", path: "/adopt/surrender" },
+    ],
+  },
+
+  { name: "Care Tips", path: "/care-tips", children: [] },
+
+
+  { name: "Donate", path: "/volunteer", children: [] },
+  { name: "News", path: "/news", children: [] },
+  { name: "Shop", path: "/shop", children: [] },
+  { name: "Contact", path: "/contact", children: [] },
+];
+
 
   const initials =
     (user?.name || "")
@@ -78,10 +90,16 @@ export default function Header() {
             <span className="inline-flex items-center gap-1.5/">
               <MapPin size={15} aria-hidden /> Ha Noi — Viet Nam
             </span>
-            <a href="mailto:hello@furshield.app" className="inline-flex items-center gap-1.5 hover:underline">
+            <a
+              href="mailto:hello@furshield.app"
+              className="inline-flex items-center gap-1.5 hover:underline"
+            >
               <Mail size={15} aria-hidden /> hello@furshield.app
             </a>
-            <a href="tel:+84393201068" className="inline-flex items-center gap-1.5 hover:underline">
+            <a
+              href="tel:+84393201068"
+              className="inline-flex items-center gap-1.5 hover:underline"
+            >
               <Phone size={15} aria-hidden /> (+84) 39 320 1068
             </a>
           </div>
@@ -92,7 +110,8 @@ export default function Header() {
               onClick={() => navigate("/search")}
               aria-label="Search"
             >
-              <Search size={16} /> <span className="hidden md:inline">Search</span>
+              <Search size={16} />{" "}
+              <span className="hidden md:inline">Search</span>
             </button>
           </div>
         </div>
@@ -103,7 +122,9 @@ export default function Header() {
         className={[
           "border-b transition-shadow",
           "bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white",
-          scrolled ? "shadow-md border-slate-200" : "shadow-sm border-slate-100",
+          scrolled
+            ? "shadow-md border-slate-200"
+            : "shadow-sm border-slate-100",
         ].join(" ")}
       >
         <div className="mx-auto max-w-7xl px-4 md:px-6 h-[92px] flex items-center justify-between">
@@ -114,7 +135,7 @@ export default function Header() {
             aria-label="Go to home"
           >
             <img
-              src="/assets/logo_furshield.svg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo8i-q5Q4ArOxfllfXYErbIhDhOn_uy5ESfw&s"
               alt="FurShield logo"
               className="h-12 w-auto rounded-md transition-transform group-hover:scale-[1.02]"
             />
@@ -129,7 +150,10 @@ export default function Header() {
           </button>
 
           {/* Desktop nav */}
-          <nav aria-label="Primary" className="hidden lg:flex items-center gap-2">
+          <nav
+            aria-label="Primary"
+            className="hidden lg:flex items-center gap-2"
+          >
             {navItems.map((item, idx) => (
               <div key={idx} className="relative group">
                 {item.children.length === 0 ? (
@@ -144,7 +168,9 @@ export default function Header() {
                         "hover:text-emerald-700 hover:bg-emerald-50/70",
                         // underline indicator
                         "relative after:absolute after:left-3 after:right-3 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-emerald-600",
-                        isActive ? "font-semibold after:opacity-100" : "after:opacity-0 group-hover:after:opacity-70",
+                        isActive
+                          ? "font-semibold after:opacity-100"
+                          : "after:opacity-0 group-hover:after:opacity-70",
                       ].join(" ")
                     }
                   >
@@ -204,7 +230,9 @@ export default function Header() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white text-sm font-bold">
                     {initials}
                   </div>
-                  <span className="font-semibold text-slate-800">{user.name}</span>
+                  <span className="font-semibold text-slate-800">
+                    {user.name}
+                  </span>
                 </button>
                 {userMenuOpen && (
                   <div
@@ -287,12 +315,17 @@ export default function Header() {
           className={[
             "lg:hidden fixed top-[calc(36px+92px)] left-0 right-0 z-50 bg-white border-t border-slate-200",
             "transition-transform duration-300",
-            menuOpen ? "translate-y-0" : "-translate-y-2 pointer-events-none opacity-0",
+            menuOpen
+              ? "translate-y-0"
+              : "-translate-y-2 pointer-events-none opacity-0",
           ].join(" ")}
         >
           <div className="px-4 pb-4 pt-2">
             {navItems.map((item, idx) => (
-              <div key={idx} className="py-2 border-b border-slate-200 last:border-none">
+              <div
+                key={idx}
+                className="py-2 border-b border-slate-200 last:border-none"
+              >
                 <NavLink
                   to={item.path}
                   className="block py-1.5 font-semibold text-slate-900"
@@ -303,7 +336,9 @@ export default function Header() {
 
                 {item.children.length > 0 && (
                   <details className="mt-1">
-                    <summary className="cursor-pointer text-sm text-slate-600">Submenu</summary>
+                    <summary className="cursor-pointer text-sm text-slate-600">
+                      Submenu
+                    </summary>
                     <ul className="pl-4 mt-2 space-y-1 text-sm text-slate-700">
                       {item.children.map((child, cidx) => (
                         <li key={cidx}>
