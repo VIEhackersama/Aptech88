@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
 import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
+import  PetOwners from "./pageone/PetOwners";
+import PetHealt from "./pageone/HealthRecords";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
@@ -20,7 +22,7 @@ export default function App() {
         
         <main id="content" className="pt-[144px] md:pt-[144px] lg:pt-[168px]">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<PetHealt />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/care-tips/appointments" element={<AppointmentsPage />} />

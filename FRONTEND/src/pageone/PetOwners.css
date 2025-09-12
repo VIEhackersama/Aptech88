@@ -1,0 +1,120 @@
+/* Tổng thể trang */
+.pet-page {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9fdf9;
+  min-height: 100vh;
+}
+
+/* Banner Hero */
+.hero-section {
+  background: linear-gradient(rgba(56, 160, 112, 0.85), rgba(34, 139, 34, 0.85)),
+    url("https://images.unsplash.com/photo-1624901632839-f87b5a2b9e47?auto=format&fit=crop&w=1200&q=80")
+      center/cover no-repeat;
+  padding: 80px 20px;
+  position: relative;
+  border-radius: 0 0 30px 30px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Ảnh overlay trong hero */
+.overlay-img {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.9;
+}
+
+/* Filter buttons */
+.filter-buttons .btn {
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.filter-buttons .btn:hover {
+  transform: scale(1.05);
+}
+
+/* Card thú cưng */
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+/* Nút thêm thú cưng */
+.btn-success {
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Nội dung Modal */
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 450px;
+  width: 100%;
+  animation: fadeInUp 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation modal */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .overlay-img {
+    width: 60px;
+    height: 60px;
+  }
+}
