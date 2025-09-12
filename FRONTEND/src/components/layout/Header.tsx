@@ -46,6 +46,7 @@ export default function Header() {
 
   {
     name: "Animal shelters",
+
     path: "/adopt",
     children: [
       { name: "Adopt", path: "/adopt" },
