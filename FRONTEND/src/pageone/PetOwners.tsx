@@ -7,7 +7,6 @@ interface Pet {
   species: string;
   breed: string;
   age: number;
-  history: string;
   image: string;
 }
 
@@ -20,7 +19,6 @@ export default function PetOwners() {
       species: "Dog",
       breed: "Shiba Inu",
       age: 3,
-      history: "Khỏe mạnh, thích chạy nhảy",
       image: "https://placedog.net/400/300?id=1",
     },
     {
@@ -29,7 +27,6 @@ export default function PetOwners() {
       species: "Cat",
       breed: "Persian",
       age: 2,
-      history: "Cần chăm sóc dị ứng",
       image: "https://placekitten.com/400/300",
     },
      {
@@ -38,7 +35,6 @@ export default function PetOwners() {
       species: "Dog",
       breed: "Shiba Inu",
       age: 3,
-      history: "Khỏe mạnh, thích chạy nhảy",
       image: "https://placedog.net/400/300?id=1",
     },
     {
@@ -47,7 +43,6 @@ export default function PetOwners() {
       species: "Cat",
       breed: "Persian",
       age: 2,
-      history: "Cần chăm sóc dị ứng",
       image: "https://placekitten.com/400/300",
     },
      {
@@ -56,7 +51,6 @@ export default function PetOwners() {
       species: "Dog",
       breed: "Shiba Inu",
       age: 3,
-      history: "Khỏe mạnh, thích chạy nhảy",
       image: "https://placedog.net/400/300?id=1",
     },
     {
@@ -65,7 +59,6 @@ export default function PetOwners() {
       species: "Cat",
       breed: "Persian",
       age: 2,
-      history: "Cần chăm sóc dị ứng",
       image: "https://placekitten.com/400/300",
     },
   ]);
@@ -76,7 +69,6 @@ export default function PetOwners() {
     species: "",
     breed: "",
     age: 0,
-    history: "",
     image: "",
   });
 
@@ -113,7 +105,6 @@ export default function PetOwners() {
       species: "",
       breed: "",
       age: 0,
-      history: "",
       image: "",
     });
     setShowForm(false);
@@ -134,32 +125,7 @@ export default function PetOwners() {
           <p>Quản lý hồ sơ thú cưng của bạn dễ dàng và đẹp mắt</p>
 
           {/* Filter buttons */}
-          <div className="filter-buttons mt-4">
-            <button
-              className={`btn me-2 ${
-                filter === "All" ? "btn-light" : "btn-outline-light"
-              }`}
-              onClick={() => setFilter("All")}
-            >
-              Tất cả
-            </button>
-            <button
-              className={`btn me-2 ${
-                filter === "Dog" ? "btn-light" : "btn-outline-light"
-              }`}
-              onClick={() => setFilter("Dog")}
-            >
-              Chó
-            </button>
-            <button
-              className={`btn me-2 ${
-                filter === "Cat" ? "btn-light" : "btn-outline-light"
-              }`}
-              onClick={() => setFilter("Cat")}
-            >
-              Mèo
-            </button>
-          </div>
+          
         </div>
       </section>
 
@@ -195,9 +161,6 @@ export default function PetOwners() {
                   </p>
                   <p className="card-text mb-1">
                     <strong>Tuổi:</strong> {pet.age}
-                  </p>
-                  <p className="card-text">
-                    <strong>Tiền sử:</strong> {pet.history}
                   </p>
                 </div>
               </div>
@@ -245,13 +208,6 @@ export default function PetOwners() {
                 name="age"
                 placeholder="Tuổi"
                 value={formData.age}
-                onChange={handleChange}
-                className="form-control mb-2"
-              />
-              <textarea
-                name="history"
-                placeholder="Tiền sử bệnh"
-                value={formData.history}
                 onChange={handleChange}
                 className="form-control mb-2"
               />
