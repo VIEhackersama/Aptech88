@@ -57,13 +57,10 @@ export default function Header() {
       { name: "Surrender", path: "/adopt/surrender" },
     ],
   },
-
-  { name: "Care Tips", path: "/care-tips", children: [] },
-
-
-  { name: "Donate", path: "/volunteer", children: [] },
-  { name: "News", path: "/news", children: [] },
-  { name: "Shop", path: "/shop", children: [] },
+  { name: "Veterinarians", path: "/veter", children: [
+    { name: "Appointment", path: "/veter/appointments" },
+    { name: "Health records", path: "/veter/health-records" },
+  ] },
   { name: "Contact", path: "/contact", children: [] },
 ];
 
