@@ -1,0 +1,148 @@
+/* ==== Banner ==== */
+.hero-banner {
+  position: relative;
+  height: 70vh;
+  background-image: url("./assets/home3.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(16, 102, 66);
+}
+
+.hero-banner .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45); /* lớp phủ để chữ nổi bật */
+  z-index: 1;
+}
+
+.hero-banner h1,
+.hero-banner p {
+  z-index: 2;
+  margin: 0.5rem 0;
+}
+
+/* Hiệu ứng fade + zoom */
+@keyframes fadeZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-title {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: fadeZoomIn 1s ease-out forwards;
+}
+
+.animate-subtitle {
+  font-size: 1.3rem;
+  animation: fadeZoomIn 1.5s ease-out forwards;
+}
+
+/* ==== Container chính ==== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 3rem 1rem;
+}
+
+/* ==== Card danh sách ==== */
+.record-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.record-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.record-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* ==== Timeline ==== */
+.timeline {
+  position: relative;
+  margin: 1rem 0;
+  padding-left: 2rem;
+  border-left: 3px solid #19702f;
+}
+
+.timeline-item {
+  margin-bottom: 1.2rem;
+  position: relative;
+  animation: fadeZoomIn 0.6s ease-out forwards;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: #13592d;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* ==== Buttons ==== */
+.btn-custom {
+  background: #309d68;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-custom:hover {
+  background: #257454;
+  transform: translateY(-2px);
+}
+
+/* ==== File upload section ==== */
+.file-upload {
+  margin-top: 1rem;
+}
+
+.file-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.file-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.file-list li a {
+  text-decoration: none;
+  color: #1d6b36;
+  font-weight: 500;
+}
+
+.file-list li a:hover {
+  text-decoration: underline;
+}
