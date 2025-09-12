@@ -12,6 +12,7 @@ import PetHealt from "./pageone/HealthRecords";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
+import Appointment from "./pageone/Appointments";
 
 export default function App() {
   return (
@@ -23,10 +24,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/veter/appointments"
-              element={<AppointmentsPage />}
-            />
+            <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route
               path="/veter/health-records"
               element={<HealthRecordsPage />}
@@ -34,6 +32,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
+            <Route path="/petappointment" element={<Appointment></Appointment>}></Route>
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
           </Routes>

@@ -35,12 +35,12 @@ export default function Header() {
   { name: "Home", path: "/", children: [] },
 
   {
-    name: "Pet's owner",
-    path: "/about",
+    name: "Pet's owner", 
+    
+    path:"/petowner",
     children: [
-      { name: "Pet profiles", path: "/about#history" },
-      { name: "Track health records", path: "/about#vision" },
-      { name: "Manage appointments", path: "/about#org" },
+      // { name: "Pet profiles", path: "/petowner" },
+      // { name: "Track health records", path: "/pethealth" },
     ],
   },
 
