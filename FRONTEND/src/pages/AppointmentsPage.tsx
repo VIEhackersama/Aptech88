@@ -5,7 +5,9 @@ interface Appointment {
   appt_id: number;
   pet: { name: string };
   owner: { name: string };
+
   veterinarian?: { name: string };
+
   appointment_time: string;
   status: string;
 }
@@ -17,6 +19,7 @@ export default function AppointmentsPage() {
 
   const fetchAppointments = async () => {
     try {
+
    
       const res = await axios.get("http://127.0.0.1:8000/api/appointments", {
         withCredentials: true,
@@ -37,6 +40,7 @@ export default function AppointmentsPage() {
 
   const updateStatus = async (id: number, status: string) => {
     try {
+
       const res = await axios.put(
         `http://127.0.0.1:8000/api/appointments/${id}`,
         { status },
@@ -65,6 +69,7 @@ export default function AppointmentsPage() {
             <th>ID</th>
             <th>Pet</th>
             <th>Owner</th>
+
             <th>Vet</th>
             <th>Time</th>
             <th>Status</th>
@@ -77,6 +82,7 @@ export default function AppointmentsPage() {
               <td>{a.appt_id}</td>
               <td>{a.pet?.name}</td>
               <td>{a.owner?.name}</td>
+
               <td>{a.veterinarian?.name ?? "-"}</td>
               <td>{new Date(a.appointment_time).toLocaleString()}</td>
               <td>{a.status}</td>

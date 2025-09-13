@@ -38,6 +38,7 @@ export default function HealthRecordsPage() {
     }
   };
 
+
   const fetchPets = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/api/pets", { withCredentials: true });
@@ -56,6 +57,7 @@ export default function HealthRecordsPage() {
     e.preventDefault();
     try {
       if (isEditing) {
+
         const res = await axios.put(
           `http://127.0.0.1:8000/api/healthrecords/${form.record_id}`,
           form,
@@ -76,6 +78,7 @@ export default function HealthRecordsPage() {
   const handleEdit = (r: HealthRecord) => {
     setForm({
       record_id: r.record_id,
+
       pet_id: "", // Nếu muốn edit thì cần map lại pet_id từ backend
       visit_date: r.visit_date,
       diagnosis: r.diagnosis,
