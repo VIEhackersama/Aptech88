@@ -14,7 +14,7 @@ import PetHealt from "./pageone/HealthRecords";
 
 
 // import Contact from "./pages/adoption/Contact";
-// import Contact from "./pages/Contact";
+import Contact from "./pages/Contact";
 
 
 import Donate from "./pages/Donate";
@@ -27,7 +27,7 @@ import Veterinarians from "./pages/Veterinarians";
 import Appointments from "./pageone/Appointments";
 // import Surrender from "./components/adoption/Surrender";
 
-import { Contact } from "lucide-react";
+
 import Surrender from "./pages/adoption/Surrender";
 import Events from "./pages/adoption/Event";
 
@@ -59,7 +59,7 @@ export default function App() {
               element={<HealthRecordsPage />}
             />
 
-            {/* <Route path="/contact" element={<Contact />} /> */}
+            <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
 
