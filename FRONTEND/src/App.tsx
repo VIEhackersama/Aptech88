@@ -4,6 +4,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile"
+import Register from "./pages/Register"
 import { AuthProvider } from "./context/AuthContext";
 import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
@@ -25,6 +27,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/register" element={<Register />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/veter" element={<Veterinarians />} />
 <Route path="/veter/appointments" element={<AppointmentsPage />} />
