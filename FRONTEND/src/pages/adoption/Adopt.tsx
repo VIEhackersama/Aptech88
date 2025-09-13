@@ -64,8 +64,21 @@ const Adopt: React.FC = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
+      {/* Cách thêm link đến các trang phụ */}
+      <div className="mt-10 grid grid-cols-3 gap-4 text-center">
+        <Link to="/how-to-adopt" className="text-blue-600 hover:underline">How To Adopt</Link>
+        <Link to="/what-included" className="text-blue-600 hover:underline">What’s Included</Link>
+        <Link to="/fees" className="text-blue-600 hover:underline">Adoption Fees</Link>
+      </div>
+
+      <div className="mt-10 text-center">
+        <Link to="/wants-list" className="bg-gradient-to-r from-green-700 to-emerald-500 text-white px-6 py-2 rounded-lg">
+          Join Wants-List
+        </Link>
+      </div>
     </div>
   );
-};
+}
+
 
 export default Adopt;

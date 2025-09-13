@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 const Surrender: React.FC = () => {
@@ -132,3 +133,4 @@ const Surrender: React.FC = () => {
 };
 
 export default Surrender;
+
