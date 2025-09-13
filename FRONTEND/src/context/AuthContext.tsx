@@ -31,7 +31,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       email,
       role: "owners",
-    };
+
+    });
+
     setUser(fakeUser);
     localStorage.setItem("auth_user", JSON.stringify(fakeUser));
   };
