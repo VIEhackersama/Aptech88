@@ -18,6 +18,8 @@ import AdoptDetail from "./pages/adoption/AdoptDetail";
 import Adopt from "./pages/adoption/Adopt";
 import HowToAdopt from "./pages/adoption/HowToAdopt";
 import { Contact } from "lucide-react";
+import Surrender from "./pages/adoption/Surrender";
+import Events from "./pages/adoption/Event";
 
 export default function App() {
   return (
@@ -47,6 +49,8 @@ export default function App() {
             <Route path="/adopt" element={<Adopt />} />
             <Route path="/animal/:id" element={<AdoptDetail />} /><Route path="/" element={<Navigate to="/adopt" replace />} />
             <Route path="/how-to-adopt" element={<HowToAdopt />} />
+            <Route path="/surrender" element={<Surrender />} />
+            <Route path="/event" element={<Events />} />
           </Routes>
         </main>
         <Footer />
