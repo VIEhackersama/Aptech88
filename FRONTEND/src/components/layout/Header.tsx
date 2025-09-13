@@ -47,7 +47,8 @@ export default function Header() {
     {
       name: "Veterinarians",
       path: "/veter",
-      children: [],
+      children: [
+],
     },
     { name: "Contact", path: "/contact", children: [] },
   ];
