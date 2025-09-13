@@ -14,6 +14,7 @@ import PetHealt from "./pageone/HealthRecords";
 
 
 
+
  import Contact from "./pages/Contact";
 
 
@@ -23,13 +24,14 @@ import AnimalShelter from "./pages/AnimalShelter";
 import AdoptDetail from "./pages/adoption/AdoptDetail";
 import Adopt from "./pages/adoption/Adopt";
 import HowToAdopt from "./pages/adoption/HowToAdopt";
-import Veterinarians from "./pages/Veterinarians";
+import VeterinariansPage from "./pages/Veterinarians";
 import Appointments from "./pageone/Appointments";
 // import Surrender from "./components/adoption/Surrender";
 
 
 import Surrender from "./pages/adoption/Surrender";
 import Events from "./pages/adoption/Event";
+import contact from "./pages/Contact";
 
 
 
@@ -47,13 +49,13 @@ export default function App() {
 
             <Route path="/login" element={<Login />} />
 
-            <Route path="/veter" element={<Veterinarians />
+            <Route path="/veter" element={<VeterinariansPage />} />
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
 
 
 
-            <Route path="/veter" element={<Veterinarians />} />
+            <Route path="/veter" element={<VeterinariansPage />} />
 
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route
@@ -61,7 +63,7 @@ export default function App() {
               element={<HealthRecordsPage />}
             />
 
-            {/* <Route path="/contact" element={<Contact />} /> */}
+             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
 
@@ -71,17 +73,13 @@ export default function App() {
             ></Route>
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
-            <Route
-              path="/animalshelter"
-              element={<AnimalShelter></AnimalShelter>}
-            ></Route>
-            <Route path="/adopt" element={<Adopt />} />
-            <Route path="/animal/:id" element={<AdoptDetail />} />
-            <Route path="/" element={<Navigate to="/adopt" replace />} />
-            <Route path="/how-to-adopt" element={<HowToAdopt />} />
+            <Route path="adopt" element={<AnimalShelter />}>
+          <Route path="adopt" element={<Adopt />} />
+          <Route path="adopt/:id" element={<AdoptDetail />} />
+          <Route path="surrender" element={<Surrender />} />
+          <Route path="howtoadopt" element={<HowToAdopt />} />
 
-            <Route path="/surrender" element={<Surrender />} />
-            <Route path="/contact" element={<Contact />} />
+
           </Routes>
         </main>
         <Footer />

@@ -1,24 +1,46 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Adopt from '../components/adoption/Adopt';
-import AdoptDetail from '../components/adoption/AdoptDetail';
-import Events from '../components/adoption/Event';
-import Surrender from '../components/adoption/Surrender';
+import React from "react";
+import { Outlet, NavLink } from "react-router-dom";
 
 export default function AnimalShelter() {
-    return (
-
-        <div className="bg-gradient-to-r from-green-700 to-emerald-500 min-h-screen">
-            <Routes>
-                {/* Route mặc định khi vào /animalshelter */}
-                <Route index element={<Adopt />} />
-
-                <Route path="adopt" element={<Adopt />} />
-                <Route path="adopt/:id" element={<AdoptDetail />} />
-                <Route path="events" element={<Events />} />
-                <Route path="surrender" element={<Surrender />} />
-            </Routes>
-
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-blue-600 text-white py-4">
+        <div className="container mx-auto flex justify-between items-center px-4">
+          <h1 className="text-2xl font-bold">Animal Shelter</h1>
+          <nav className="space-x-4">
+            <NavLink
+              to="adopt"
+              className={({ isActive }) =>
+                isActive ? "underline font-semibold" : ""
+              }
+            >
+              Adopt
+            </NavLink>
+            <NavLink
+              to="surrender"
+              className={({ isActive }) =>
+                isActive ? "underline font-semibold" : ""
+              }
+            >
+              Surrender
+            </NavLink>
+            <NavLink
+              to="howtoadopt"
+              className={({ isActive }) =>
+                isActive ? "underline font-semibold" : ""
+              }
+            >
+              How To Adopt
+            </NavLink>
+          </nav>
         </div>
-    );
+      </header>
+
+      {/* Nội dung page con */}
+      <main className="container mx-auto p-6">
+        <Outlet />
+      </main>
+    </div>
+  );
 }
