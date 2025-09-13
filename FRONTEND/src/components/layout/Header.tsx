@@ -35,14 +35,7 @@ export default function Header() {
     {
       name: "Animal shelters",
       path: "/adopt",
-      children: [
-        { name: "Adopt", path: "/adopt" },
-        { name: "Adopt Detail", path: "/adopt/detail" },
-        { name: "Animal Card", path: "/adopt/animal-card" },
-        { name: "Event", path: "/adopt/event" },
-        { name: "Uploader", path: "/adopt/im-uploader" },
-        { name: "Surrender", path: "/adopt/surrender" },
-      ],
+      children: [],
     },
     {
       name: "Veterinarians",
