@@ -14,8 +14,14 @@ import PetHealt from "./pageone/HealthRecords";
 
 
 
+<<<<<<< HEAD
 
  import Contact from "./pages/Contact";
+=======
+// import Contact from "./pages/adoption/Contact";
+import Contact from "./pages/Contact";
+
+>>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
 
 
 import Donate from "./pages/Donate";
@@ -48,13 +54,23 @@ export default function App() {
 
             <Route path="/login" element={<Login />} />
 
+<<<<<<< HEAD
             <Route path="/veter" element={<VeterinariansPage />} />
+=======
+
+            <Route path="/veter" element={<Veterinarians />
+>>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
 
 
 
+<<<<<<< HEAD
             <Route path="/veter" element={<VeterinariansPage />} />
+=======
+
+            <Route path="/veter" element={<Veterinarians />} />
+>>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
 
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route
@@ -62,7 +78,7 @@ export default function App() {
               element={<HealthRecordsPage />}
             />
 
-            {/* <Route path="/contact" element={<Contact />} /> */}
+            <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
 
