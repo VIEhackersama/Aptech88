@@ -11,6 +11,10 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
 import  PetOwners from "./pageone/PetOwners";
 import PetHealt from "./pageone/HealthRecords";
+
+// import Contact from "./pages/adoption/Contact";
+// import Contact from "./pages/Contact";
+
 import Donate from "./pages/Donate";
 import React from "react";
 import AnimalShelter from "./pages/AnimalShelter";
@@ -36,7 +40,7 @@ export default function App() {
 <Route path="/veter/health-records" element={<HealthRecordsPage />} />
            
 
-            <Route path="/contact" element={<Contact />} />
+            {/* <Route path="/contact" element={<Contact />} /> */}
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
             <Route path="/petappointment" element={<Appointment></Appointment>}></Route>

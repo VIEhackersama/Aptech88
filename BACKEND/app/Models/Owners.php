@@ -2,33 +2,42 @@
 
 namespace App\Models;
 
-use Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Owners extends Model
+class Owners extends Authenticatable
 {
-    use HasFactory;
-    protected $primaryKey='owner_id';
-    protected $fillable=[
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $primaryKey = 'owner_id';
+
+    protected $fillable = [
         'name',
         'email',
         'password_hash',
         'address',
         'img_url',
-        'phonenumber'
+        'phonenumber',
     ];
-    protected $hidden=[
-        'password_hash'
+
+    protected $hidden = [
+        'password_hash',
+        'remember_token', 
     ];
+
     public function setPasswordHashAttribute($value)
     {
         $this->attributes['password_hash'] = Hash::make($value);
     }
+
     public function pets()
     {
         return $this->hasMany(Pets::class, 'owner_id', 'owner_id');
     }
+
     public function appointments()
     {
         return $this->hasMany(Appointments::class, 'owner_id', 'owner_id');
