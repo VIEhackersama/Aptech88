@@ -14,14 +14,8 @@ import PetHealt from "./pageone/HealthRecords";
 
 
 
-<<<<<<< HEAD
 
  import Contact from "./pages/Contact";
-=======
-// import Contact from "./pages/adoption/Contact";
-import Contact from "./pages/Contact";
-
->>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
 
 
 import Donate from "./pages/Donate";
@@ -37,7 +31,7 @@ import Appointments from "./pageone/Appointments";
 
 import Surrender from "./pages/adoption/Surrender";
 import Events from "./pages/adoption/Event";
-
+import contact from "./pages/Contact";
 
 
 export default function App() {
@@ -54,23 +48,13 @@ export default function App() {
 
             <Route path="/login" element={<Login />} />
 
-<<<<<<< HEAD
             <Route path="/veter" element={<VeterinariansPage />} />
-=======
-
-            <Route path="/veter" element={<Veterinarians />
->>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
 
 
 
-<<<<<<< HEAD
             <Route path="/veter" element={<VeterinariansPage />} />
-=======
-
-            <Route path="/veter" element={<Veterinarians />} />
->>>>>>> a150ef960c879357bdd87e7d659a1e4bb349b8c7
 
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route
@@ -78,7 +62,7 @@ export default function App() {
               element={<HealthRecordsPage />}
             />
 
-            <Route path="/contact" element={<Contact />} />
+             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
 
@@ -93,6 +77,7 @@ export default function App() {
           <Route path="adopt/:id" element={<AdoptDetail />} />
           <Route path="surrender" element={<Surrender />} />
           <Route path="howtoadopt" element={<HowToAdopt />} />
+
         </Route>
           </Routes>
         </main>
