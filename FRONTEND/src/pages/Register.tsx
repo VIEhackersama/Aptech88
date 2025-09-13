@@ -7,7 +7,16 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [role, setRole] = useState("owners");
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
+const [form, setForm] = useState({
+  name: "",
+  email: "",
+  password: "",
+  confirm: "",
+  address: "",
+  phonenumber: "",
+  note:"",
+  img_url: "",
+});
   const [err, setErr] = useState<string | null>(null);
 
   if (user) return <Navigate to="/" replace />;
@@ -35,24 +44,92 @@ export default function Register() {
     <div className="min-h-[60vh] bg-white">
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-10">
         <div className="mx-auto max-w-md">
-          <h1 className="text-3xl font-extrabold text-slate-900">Create account</h1>
+          <h1 className="text-3xl font-extrabold text-slate-900">
+            Create account
+          </h1>
           <form onSubmit={onSubmit} className="mt-8 space-y-4">
-            <select name="role" value={role} onChange={onChange} className="w-full border rounded-xl px-3 py-2">
+            <select
+              name="role"
+              value={role}
+              onChange={onChange}
+              className="w-full border rounded-xl px-3 py-2"
+            >
               <option value="owners">Pet Owner</option>
               <option value="veterinarians">Veterinarian</option>
               <option value="animalshelters">Animal Shelter</option>
             </select>
-            <input name="name" value={form.name} onChange={onChange} placeholder="Name" className="w-full border rounded-xl px-3 py-2" />
-            <input type="email" name="email" value={form.email} onChange={onChange} placeholder="Email" className="w-full border rounded-xl px-3 py-2" />
-            <input type="password" name="password" value={form.password} onChange={onChange} placeholder="Password" className="w-full border rounded-xl px-3 py-2" />
-            <input type="password" name="confirm" value={form.confirm} onChange={onChange} placeholder="Confirm password" className="w-full border rounded-xl px-3 py-2" />
+            <input
+              name="name"
+              value={form.name}
+              onChange={onChange}
+              placeholder="Name"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              name="address"
+              value={form.address}
+              onChange={onChange}
+              placeholder="Address"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              name="phonenumber"
+              value={form.phonenumber}
+              onChange={onChange}
+              placeholder="Phone number"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              name="img_url"
+              value={form.img_url}
+              onChange={onChange}
+              placeholder="Name"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              name="note"
+              value={form.note}
+              onChange={onChange}
+              placeholder="Note"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={onChange}
+              placeholder="Email"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={onChange}
+              placeholder="Password"
+              className="w-full border rounded-xl px-3 py-2"
+            />
+            <input
+              type="password"
+              name="confirm"
+              value={form.confirm}
+              onChange={onChange}
+              placeholder="Confirm password"
+              className="w-full border rounded-xl px-3 py-2"
+            />
             {err && <p className="text-sm text-red-600">{err}</p>}
-            <button type="submit" className="w-full bg-emerald-600 text-white py-2 rounded-xl">
+            <button
+              type="submit"
+              className="w-full bg-emerald-600 text-white py-2 rounded-xl"
+            >
               Register
             </button>
             <p className="text-sm text-slate-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-emerald-700 hover:underline">Login</Link>
+              <Link to="/login" className="text-emerald-700 hover:underline">
+                Login
+              </Link>
             </p>
           </form>
         </div>
