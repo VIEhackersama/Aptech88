@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (role: string, email: string, password: string) => {
-    const res = await axios.post(`http://localhost:8000/api/${role}/login`, {
+    const res = await axios.post(`http://localhost:8000/api/auth/login`, {
       email,
       password,
     });
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     if (token) {
       await axios.post(
-        `http://localhost:8000/api/logout`,
+        `http://localhost:8000/api/auth/logout`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

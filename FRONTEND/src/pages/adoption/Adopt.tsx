@@ -1,44 +1,71 @@
-import React, { useState } from 'react';
-import AnimalCard from '../adoption/AnimalCard';
-import Pagination from '../adoption/Pagination';
-import { Animal } from '../adoption/type';
-
-
-const mockAnimals: Animal[] = [
-    { id: '1', name: 'Bella', species: 'Dog', age: 2, gender: 'Female', breed: 'Husky', image: '' },
-    { id: '2', name: 'Max', species: 'Cat', age: 3, gender: 'Male', breed: 'Ragdoll', image: '' },
-    { id: '3', name: 'Luna', species: 'Rabbit', age: 1, gender: 'Female', breed: 'Pomerian', image: '' },
-];
-
+import React, { useState, useEffect } from "react";
+import AnimalCard from "../adoption/AnimalCard";
+import Pagination from "../adoption/Pagination";
+import { Animal } from "../adoption/type";
 
 const Adopt: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
-    const totalPages = Math.ceil(mockAnimals.length / itemsPerPage);
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
-    const paginatedAnimals = mockAnimals.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/adoptionlistings");
+        if (!res.ok) throw new Error("Failed to fetch animals");
+        const data = await res.json();
+        // Map backend fields -> Animal type
+        const mapped = data.map((item: any) => ({
+          id: String(item.id),
+          name: item.pet_name,
+          species: item.species,
+          age: item.age,
+          gender: item.gender,
+          breed: item.breed,
+          image: item.img_url || "",
+        }));
+        setAnimals(mapped);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAnimals();
+  }, []);
 
+  if (loading) return <div className="p-6">Loading...</div>;
+  if (error) return <div className="p-6 text-red-500">Error: {error}</div>;
 
-    return (
-        <div className="max-w-6xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-6">Adoptable Animals</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {paginatedAnimals.map((animal) => (
-                    <AnimalCard key={animal.id} animal={animal} />
-                ))}
-            </div>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-            />
+  const totalPages = Math.ceil(animals.length / itemsPerPage);
+
+  const paginatedAnimals = animals.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Adoptable Animals</h1>
+      {paginatedAnimals.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {paginatedAnimals.map((animal) => (
+            <AnimalCard key={animal.id} animal={animal} />
+          ))}
         </div>
-    );
+      ) : (
+        <p>No animals available for adoption right now.</p>
+      )}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+    </div>
+  );
 };
-
 
 export default Adopt;

@@ -11,10 +11,10 @@ export default function AnimalShelter() {
         <div className='bg-white'>
             <Adopt />
             <AdoptDetail />
-            <Event />
-            <ImageUploader onImageUpload={function (image: string): void {
+            {/* <Event /> */}
+            {/* <ImageUploader onImageUpload={function (image: string): void {
                 throw new Error('Function not implemented.');
-            } } />
+            } } /> */}
             <Surrender />
         </div>
     )
