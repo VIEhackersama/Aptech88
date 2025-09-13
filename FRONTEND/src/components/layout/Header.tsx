@@ -24,7 +24,7 @@ export default function Header() {
   const navItems = [
     { name: "Home", path: "/", children: [] },
     {
-      name: "Pet's owner",
+      name: "Pet's Owner",
       path: "/about",
       children: [
         { name: "Pet profiles", path: "/about#profiles" },
@@ -33,7 +33,7 @@ export default function Header() {
       ],
     },
     {
-      name: "Animal shelters",
+      name: "Animal Shelters",
       path: "/adopt",
       children: [
         { name: "Adopt", path: "/adopt" },
@@ -64,7 +64,7 @@ export default function Header() {
       .join("") || "U";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 overflow-visible">
       {/* Topbar */}
       <div
         className="h-9 text-white text-xs md:text-sm"
@@ -90,7 +90,7 @@ export default function Header() {
       {/* Main header */}
       <div
         className={[
-          "border-b transition-shadow bg-white/80 backdrop-blur",
+          "border-b transition-shadow bg-white/80 backdrop-blur overflow-visible",
           scrolled ? "shadow-md border-slate-200" : "shadow-sm border-slate-100",
         ].join(" ")}
       >
@@ -111,9 +111,9 @@ export default function Header() {
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-2 relative z-[55] overflow-visible">
             {navItems.map((item, idx) => (
-              <div key={idx} className="relative group">
+              <div key={idx} className="relative group/nav">
                 {item.children.length === 0 ? (
                   <NavLink
                     to={item.path}
@@ -122,7 +122,7 @@ export default function Header() {
                         "px-3 py-2 text-[15px] uppercase tracking-wide text-slate-800 rounded-xl transition-all",
                         "hover:text-emerald-700 hover:bg-emerald-50/70",
                         "relative after:absolute after:left-3 after:right-3 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-emerald-600",
-                        isActive ? "font-semibold after:opacity-100" : "after:opacity-0 group-hover:after:opacity-70",
+                        isActive ? "font-semibold after:opacity-100" : "after:opacity-0 group-hover/nav:after:opacity-70",
                       ].join(" ")
                     }
                   >
@@ -130,11 +130,25 @@ export default function Header() {
                   </NavLink>
                 ) : (
                   <>
-                    <button className="px-3 py-2 text-[15px] uppercase tracking-wide text-slate-800 rounded-xl inline-flex items-center gap-1 hover:text-emerald-700 hover:bg-emerald-50/70">
+                    {/* Parent clickable */}
+                    <NavLink
+                      to={item.path}
+                      className="px-3 py-2 text-[15px] uppercase tracking-wide text-slate-800 rounded-xl inline-flex items-center gap-1 hover:text-emerald-700 hover:bg-emerald-50/70"
+                    >
                       {item.name}
-                      <ChevronDown size={18} />
-                    </button>
-                    <div className="invisible opacity-0 translate-y-1 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all absolute left-0 top-full mt-2 min-w-60 rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl">
+                      <ChevronDown size={18} className="ml-1" />
+                    </NavLink>
+
+                    {/* Dropdown */}
+                    <div
+                      className={[
+                        "absolute left-0 top-full mt-2 min-w-60 rounded-2xl border border-slate-100 bg-white p-2 shadow-2xl",
+                        "z-[60]",
+                        "opacity-0 translate-y-1 pointer-events-none",
+                        "group-hover/nav:opacity-100 group-hover/nav:translate-y-0 group-hover/nav:pointer-events-auto",
+                        "transition-all duration-150",
+                      ].join(" ")}
+                    >
                       <ul className="py-1">
                         {item.children.map((child, cidx) => (
                           <li key={cidx}>

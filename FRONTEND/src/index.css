@@ -67,3 +67,4 @@ html {
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 
+/* header, nav { overflow: visible !important; } */
