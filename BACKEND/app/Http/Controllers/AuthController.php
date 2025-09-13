@@ -27,7 +27,7 @@ class AuthController extends Controller
                 $user = Owners::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password_hash' => $request->password,
+                    'password_hash' => Hash::make($request->password),
                     'address' => $request->address,
                     'phonenumber' => $request->phonenumber,
                     'img_url' => $request->img_url,
@@ -37,7 +37,7 @@ class AuthController extends Controller
                 $user = Veterinarians::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password_hash' => $request->password,
+                    'password_hash' => Hash::make($request->password),
                     'address' => $request->address,
                     'phonenumber' => $request->phonenumber,
                     'img_url' => $request->img_url,
@@ -47,7 +47,7 @@ class AuthController extends Controller
                 $user = AnimalShelters::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password_hash' => $request->password,
+                    'password_hash' => Hash::make($request->password),
                     'address' => $request->address,
                     'phonenumber' => $request->phonenumber,
                     'img_url' => $request->img_url,
