@@ -9,9 +9,12 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
 import  PetOwners from "./pageone/PetOwners";
 import PetHealt from "./pageone/HealthRecords";
+// import Contact from "./pages/adoption/Contact";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
+import AnimalShelter from "./pages/AnimalShelter";
+
 import Veterinarians from "./pages/Veterinarians";
 import Appointment from "./pageone/Appointments";
 
@@ -36,6 +39,7 @@ export default function App() {
             <Route path="/petappointment" element={<Appointment></Appointment>}></Route>
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
+            <Route path="/animalshelter" element={<AnimalShelter></AnimalShelter>}></Route>
           </Routes>
         </main>
         <Footer />
