@@ -7,6 +7,7 @@ import Surrender from '../components/adoption/Surrender';
 
 export default function AnimalShelter() {
     return (
+
         <div className="bg-gradient-to-r from-green-700 to-emerald-500 min-h-screen">
             <Routes>
                 {/* Route mặc định khi vào /animalshelter */}
@@ -17,6 +18,7 @@ export default function AnimalShelter() {
                 <Route path="events" element={<Events />} />
                 <Route path="surrender" element={<Surrender />} />
             </Routes>
+
         </div>
     );
 }

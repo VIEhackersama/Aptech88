@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Animalshelters extends Model
+class Animalshelters extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,HasApiTokens,Notifiable;
     protected $primaryKey = 'shelter_id';
     protected $fillable = [
         'name',
@@ -19,7 +21,8 @@ class Animalshelters extends Model
         'phonenumber'
     ];
     protected $hidden = [
-        'password_hash'
+        'password_hash',
+        'remember_token'
     ];
     public function setPasswordHashAttribute($value)
     {

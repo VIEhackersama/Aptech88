@@ -25,15 +25,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (stored) setUser(JSON.parse(stored));
   }, []);
 
-  // giả lập login (frontend-only)
-  const login = async (email: string, password: string) => {
-    // ở đây chưa check password, chỉ demo
-    const fakeUser: User = {
-      id: Date.now(),
-      name: email.split("@")[0],
+
+  const login = async (role: string, email: string, password: string) => {
+    const res = await axios.post(`http://localhost:8000/api/auth/login`, {
+
       email,
       role: "owners",
-    };
+
+    });
+
+
     setUser(fakeUser);
     localStorage.setItem("auth_user", JSON.stringify(fakeUser));
   };
@@ -50,7 +51,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("auth_user", JSON.stringify(fakeUser));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (token) {
+      await axios.post(
+        `http://localhost:8000/api/auth/logout`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    }
+
+
     setUser(null);
     localStorage.removeItem("auth_user");
   };

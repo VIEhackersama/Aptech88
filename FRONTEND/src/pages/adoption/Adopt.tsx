@@ -1,53 +1,64 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import FilterBar from "../adoption/FilterBar";
+import React, { useState, useEffect } from "react";
 import AnimalCard from "../adoption/AnimalCard";
 import Pagination from "../adoption/Pagination";
-import { animals } from "../adoption/animal";
+import { Animal } from "../adoption/type";
 
-function Adopt() {
-  const speciesList = [...new Set(animals.map(a => a.species))];
-  const [selectedSpecies, setSelectedSpecies] = useState("");
-  const [sortOption, setSortOption] = useState("name");
+const Adopt: React.FC = () => {
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
 
-  const filtered = animals.filter(a => selectedSpecies === "" || a.species === selectedSpecies);
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/adoptionlistings");
+        if (!res.ok) throw new Error("Failed to fetch animals");
+        const data = await res.json();
+        // Map backend fields -> Animal type
+        const mapped = data.map((item: any) => ({
+          id: String(item.id),
+          name: item.pet_name,
+          species: item.species,
+          age: item.age,
+          gender: item.gender,
+          breed: item.breed,
+          image: item.img_url || "",
+        }));
+        setAnimals(mapped);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAnimals();
+  }, []);
 
-  const sorted = filtered.sort((a, b) => {
-    if (sortOption === "name") {
-      return a.name.localeCompare(b.name);
-    }
-    if (sortOption === "age") {
-      // giả sử tuổi dạng "2 yrs" lấy số
-      const na = parseInt(a.age);
-      const nb = parseInt(b.age);
-      return na - nb;
-    }
-    if (sortOption === "size") {
-      return a.size.localeCompare(b.size);
-    }
-    return 0;
-  });
+  if (loading) return <div className="p-6">Loading...</div>;
+  if (error) return <div className="p-6 text-red-500">Error: {error}</div>;
 
-  const totalPages = Math.ceil(sorted.length / itemsPerPage);
-  const paginated = sorted.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage);
+  const totalPages = Math.ceil(animals.length / itemsPerPage);
+
+  const paginatedAnimals = animals.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
-    <div className="bg-white min-h-screen p-8">
-      <h1 className="text-3xl font-bold mb-6">Available Animals</h1>
-      <FilterBar
-        speciesList={speciesList}
-        selectedSpecies={selectedSpecies}
-        onSpeciesChange={setSelectedSpecies}
-        sortOption={sortOption}
-        onSortChange={setSortOption}
-      />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {paginated.map(animal => (
-          <AnimalCard key={animal.id} animal={animal} />
-        ))}
-      </div>
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">Adoptable Animals</h1>
+      {paginatedAnimals.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {paginatedAnimals.map((animal) => (
+            <AnimalCard key={animal.id} animal={animal} />
+          ))}
+        </div>
+      ) : (
+        <p>No animals available for adoption right now.</p>
+      )}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
