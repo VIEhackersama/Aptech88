@@ -12,7 +12,6 @@ export default function HowToAdopt() {
           <li>Complete adoption forms & pay fee</li>
           <li>Take your new companion home</li>
         </ol>
-        <p className="mt-4 text-gray-600">We operate first-come, first-served. If you want a specific animal, try morning appointments.</p>
       </div>
     </main>
   );

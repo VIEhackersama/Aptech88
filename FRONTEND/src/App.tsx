@@ -11,6 +11,7 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import HealthRecordsPage from "./pages/HealthRecordsPage";
 import PetOwners from "./pageone/PetOwners";
 import PetHealt from "./pageone/HealthRecords";
+
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import React from "react";
@@ -20,6 +21,7 @@ import AnimalShelter from "./pages/AnimalShelter";
 import AdoptDetail from "./pages/adoption/AdoptDetail";
 import Adopt from "./pages/adoption/Adopt";
 import HowToAdopt from "./pages/adoption/HowToAdopt";
+
 import Events from "./pages/adoption/Event";
 import Surrender from "./pages/adoption/Surrender";
 
@@ -48,6 +50,7 @@ export default function App() {
             {/* Veterinarians */}
             <Route path="/veter" element={<VeterinariansPage />} />
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
+
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
 
             {/* Chủ nuôi thú cưng */}
