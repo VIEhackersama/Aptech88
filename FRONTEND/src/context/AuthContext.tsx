@@ -1,42 +1,68 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import axios from "axios";
 
-type User = { name: string; email: string };
+type User = { id: number; name: string; email: string; role: string };
 
 type AuthContextType = {
   user: User | null;
-  login: (email: string, password: string, name?: string) => Promise<void>;
-  logout: () => void;
+  token: string | null;
+  login: (role: string, email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const STORAGE_KEY = "furshield_user";
+const STORAGE_KEY = "furshield_auth";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setUser(JSON.parse(raw));
-    } catch {}
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      setUser(parsed.user);
+      setToken(parsed.token);
+    }
   }, []);
 
-  const login = async (email: string, _password: string, name?: string) => {
-    // Fake auth: accept anything that looks like an email.
-    const ok = /\S+@\S+\.\S+/.test(email);
-    if (!ok) throw new Error("Invalid email.");
-    const u = { name: name?.trim() || email.split("@")[0], email };
-    setUser(u);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+  const login = async (role: string, email: string, password: string) => {
+    const res = await axios.post(`http://localhost:8000/api/${role}/login`, {
+      email,
+      password,
+    });
+
+    const { user, token } = res.data;
+    setUser({ ...user, role });
+    setToken(token);
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ user: { ...user, role }, token })
+    );
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (token) {
+      await axios.post(
+        `http://localhost:8000/api/logout`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    }
     setUser(null);
+    setToken(null);
     localStorage.removeItem(STORAGE_KEY);
   };
 
-  const value = useMemo(() => ({ user, login, logout }), [user]);
+  const value = useMemo(() => ({ user, token, login, logout }), [user, token]);
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
