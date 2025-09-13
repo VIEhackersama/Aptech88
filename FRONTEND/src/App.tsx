@@ -15,6 +15,7 @@ import AnimalShelter from "./pages/AnimalShelter";
 import AdoptDetail from "./pages/adoption/AdoptDetail";
 import Adopt from "./pages/adoption/Adopt";
 import HowToAdopt from "./pages/adoption/HowToAdopt";
+import { Contact } from "lucide-react";
 
 export default function App() {
   return (
@@ -27,8 +28,8 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/veter" element={<Veterinarians />} />
-<Route path="/veter/appointments" element={<AppointmentsPage />} />
-<Route path="/veter/health-records" element={<HealthRecordsPage />} />
+            <Route path="/veter/appointments" element={<AppointmentsPage />} />
+            <Route path="/veter/health-records" element={<HealthRecordsPage />} />
            
 
             <Route path="/contact" element={<Contact />} />
