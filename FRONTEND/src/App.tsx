@@ -12,8 +12,10 @@ import HealthRecordsPage from "./pages/HealthRecordsPage";
 import  PetOwners from "./pageone/PetOwners";
 import PetHealt from "./pageone/HealthRecords";
 
+
 // import Contact from "./pages/adoption/Contact";
 // import Contact from "./pages/Contact";
+
 
 import Donate from "./pages/Donate";
 import React from "react";
@@ -21,6 +23,11 @@ import AnimalShelter from "./pages/AnimalShelter";
 import AdoptDetail from "./pages/adoption/AdoptDetail";
 import Adopt from "./pages/adoption/Adopt";
 import HowToAdopt from "./pages/adoption/HowToAdopt";
+
+import { Contact } from "lucide-react";
+import Surrender from "./pages/adoption/Surrender";
+import Events from "./pages/adoption/Event";
+
 
 export default function App() {
   return (
@@ -35,21 +42,33 @@ export default function App() {
             <Route path="/register" element={<Register />} />
 
             <Route path="/login" element={<Login />} />
+
+            {/* <Route path="/veter" element={<Veterinarians />} /> */}
+            <Route path="/veter/appointments" element={<AppointmentsPage />} />
+            <Route path="/veter/health-records" element={<HealthRecordsPage />} />
+
             <Route path="/veter" element={<Veterinarians />} />
 <Route path="/veter/appointments" element={<AppointmentsPage />} />
 <Route path="/veter/health-records" element={<HealthRecordsPage />} />
+
            
 
             {/* <Route path="/contact" element={<Contact />} /> */}
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
+
             <Route path="/petappointment" element={<Appointment></Appointment>}></Route>
+
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
             <Route path="/animalshelter" element={<AnimalShelter></AnimalShelter>}></Route>
             <Route path="/adopt" element={<Adopt />} />
             <Route path="/animal/:id" element={<AdoptDetail />} /><Route path="/" element={<Navigate to="/adopt" replace />} />
             <Route path="/how-to-adopt" element={<HowToAdopt />} />
+
+            <Route path="/surrender" element={<Surrender />} />
+            <Route path="/event" element={<Events />} />
+
           </Routes>
         </main>
         <Footer />

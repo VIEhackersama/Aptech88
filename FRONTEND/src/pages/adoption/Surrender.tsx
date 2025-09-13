@@ -134,3 +134,4 @@ const Surrender: React.FC = () => {
 
 export default Surrender;
 
+

@@ -80,5 +80,4 @@ const Adopt: React.FC = () => {
   );
 }
 
-
 export default Adopt;

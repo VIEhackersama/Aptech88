@@ -34,6 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     });
 
+
     setUser(fakeUser);
     localStorage.setItem("auth_user", JSON.stringify(fakeUser));
   };
@@ -50,7 +51,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("auth_user", JSON.stringify(fakeUser));
   };
 
-
   const logout = async () => {
     if (token) {
       await axios.post(
@@ -59,6 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         { headers: { Authorization: `Bearer ${token}` } }
       );
     }
+
 
     setUser(null);
     localStorage.removeItem("auth_user");
