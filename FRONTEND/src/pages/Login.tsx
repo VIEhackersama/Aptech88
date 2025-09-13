@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
+  const [role, setRole] = useState("owners");
   if (user) return <Navigate to="/" replace />;
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -37,7 +37,6 @@ export default function Login() {
             Use any email and password (demo). We’ll just remember your session
             on this device.
           </p>
-
           <form onSubmit={onSubmit} className="mt-8 space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700">

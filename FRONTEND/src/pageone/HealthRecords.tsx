@@ -1,123 +1,125 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import "./HealthRecords.css";
 
-// ===== Types =====
-interface TimelineItem {
+// ===== Types từ API =====
+interface HealthRecord {
   id: number;
-  date: string;
-  type: string;
-  description: string;
-}
-
-interface DocumentFile {
-  id: number;
-  name: string;
-  url: string;
-}
-
-interface InsuranceInfo {
-  id: number;
-  provider: string;
-  policyNumber: string;
-  expiration: string;
+  pet_id: number;
+  vet_id: number;
+  visit_date: string;
+  diagnosis: string;
+  treatment?: string;
+  pet?: {
+    pet_id: number;
+    name: string;
+  };
 }
 
 export default function HealthRecords() {
-  // ===== Sample Data =====
-  const [timeline, setTimeline] = useState<TimelineItem[]>([
-    { id: 1, date: "2025-01-12", type: "💉 Tiêm phòng dại", description: "Mũi 1" },
-    { id: 2, date: "2025-02-20", type: "🩺 Khám bệnh", description: "Kiểm tra da liễu" },
-    { id: 3, date: "2025-03-10", type: "💊 Điều trị", description: "Uống thuốc kháng sinh" },
-  ]);
+  const [records, setRecords] = useState<HealthRecord[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
-  const [documents, setDocuments] = useState<DocumentFile[]>([
-    {
-      id: 1,
-      name: "X-quang phổi.jpg",
-      url: "https://i.ibb.co/vczZBt7/xray-sample.jpg",
-    },
-  ]);
-
-  const [insurance, setInsurance] = useState<InsuranceInfo[]>([
-    {
-      id: 1,
-      provider: "PetCare Việt Nam",
-      policyNumber: "PC-2025-001",
-      expiration: "2026-01-01",
-    },
-  ]);
-
-  // ===== Form States =====
-  const [newEvent, setNewEvent] = useState<TimelineItem>({
-    id: 0,
-    date: "",
-    type: "",
-    description: "",
+  // form thêm record mới
+  const [newRecord, setNewRecord] = useState<
+    Omit<HealthRecord, "id" | "vet_id">
+  >({
+    pet_id: 0,
+    visit_date: "",
+    diagnosis: "",
+    treatment: "",
   });
 
-  const [newInsurance, setNewInsurance] = useState<InsuranceInfo>({
-    id: 0,
-    provider: "",
-    policyNumber: "",
-    expiration: "",
-  });
-
-  // ===== Upload documents =====
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-
-    const uploaded: DocumentFile[] = Array.from(e.target.files).map((file) => ({
-      id: Date.now() + Math.random(),
-      name: file.name,
-      url: URL.createObjectURL(file),
-    }));
-
-    setDocuments((prev) => [...prev, ...uploaded]);
-    e.target.value = "";
-  };
-
+  // Fetch records khi mount
   useEffect(() => {
-    return () => {
-      documents.forEach((doc) => URL.revokeObjectURL(doc.url));
+    const fetchRecords = async () => {
+      try {
+        const res = await axios.get<HealthRecord[]>("/api/healthrecords", {
+          withCredentials: true, // cần nếu bạn dùng Sanctum
+        });
+        setRecords(res.data);
+      } catch (err: any) {
+        setError(err.response?.data?.error || "Không thể tải dữ liệu");
+      } finally {
+        setLoading(false);
+      }
     };
-  }, [documents]);
+    fetchRecords();
+  }, []);
 
-  // ===== Add new event =====
-  const handleAddEvent = (e: React.FormEvent) => {
+  // Submit thêm record mới
+  const handleAddRecord = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTimeline((prev) => [...prev, { ...newEvent, id: Date.now() }]);
-    setNewEvent({ id: 0, date: "", type: "", description: "" });
+    try {
+      const res = await axios.post<HealthRecord>(
+        "/api/healthrecords",
+        newRecord,
+        { withCredentials: true }
+      );
+      setRecords((prev) => [...prev, res.data]); // thêm vào danh sách
+      setNewRecord({ pet_id: 0, visit_date: "", diagnosis: "", treatment: "" });
+    } catch (err: any) {
+      alert(err.response?.data?.error || "Thêm thất bại");
+    }
   };
 
-  // ===== Add new insurance =====
-  const handleAddInsurance = (e: React.FormEvent) => {
-    e.preventDefault();
-    setInsurance((prev) => [...prev, { ...newInsurance, id: Date.now() }]);
-    setNewInsurance({ id: 0, provider: "", policyNumber: "", expiration: "" });
+  // Xoá record
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Bạn có chắc muốn xoá record này?")) return;
+    try {
+      await axios.delete(`/api/healthrecords/${id}`, { withCredentials: true });
+      setRecords((prev) => prev.filter((r) => r.id !== id));
+    } catch (err: any) {
+      alert(err.response?.data?.error || "Xoá thất bại");
+    }
   };
+
+  if (loading) return <p className="text-center">⏳ Đang tải...</p>;
+  if (error) return <p className="text-danger text-center">{error}</p>;
 
   return (
     <div>
-     {/* Banner */}
-    <div className="hero-banner d-flex flex-column justify-content-center align-items-center text-center text-white">
+      {/* Banner */}
+      <div className="hero-banner d-flex flex-column justify-content-center align-items-center text-center text-white">
         <div className="overlay"></div>
-             <h1 className="fw-bold animate-title">🐾 Hồ sơ sức khỏe thú cưng 🐾</h1>
-                <p className="animate-subtitle">
-                 Theo dõi tiêm chủng, điều trị và bảo hiểm dễ dàng
-                </p>
-    </div>
+        <h1 className="fw-bold animate-title">🐾 Hồ sơ sức khỏe thú cưng 🐾</h1>
+        <p className="animate-subtitle">
+          Theo dõi tiêm chủng, điều trị và bảo hiểm dễ dàng
+        </p>
+      </div>
 
       <div className="container py-5">
-        {/* Timeline */}
+        {/* Form thêm record */}
         <section className="mb-5 fade-in">
-          <h3 className="mb-4 section-title">📅 Lịch sử tiêm chủng & điều trị</h3>
-          <form className="row g-3 align-items-end mb-4" onSubmit={handleAddEvent}>
+          <h3 className="mb-4 section-title">📅 Thêm hồ sơ khám bệnh</h3>
+          <form
+            className="row g-3 align-items-end mb-4"
+            onSubmit={handleAddRecord}
+          >
+            <div className="col-md-3">
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Pet ID"
+                value={newRecord.pet_id}
+                onChange={(e) =>
+                  setNewRecord((p) => ({
+                    ...p,
+                    pet_id: Number(e.target.value),
+                  }))
+                }
+                required
+              />
+            </div>
             <div className="col-md-3">
               <input
                 type="date"
                 className="form-control"
-                value={newEvent.date}
-                onChange={(e) => setNewEvent((p) => ({ ...p, date: e.target.value }))}
+                value={newRecord.visit_date}
+                onChange={(e) =>
+                  setNewRecord((p) => ({ ...p, visit_date: e.target.value }))
+                }
                 required
               />
             </div>
@@ -125,123 +127,49 @@ export default function HealthRecords() {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Loại sự kiện"
-                value={newEvent.type}
-                onChange={(e) => setNewEvent((p) => ({ ...p, type: e.target.value }))}
+                placeholder="Chẩn đoán"
+                value={newRecord.diagnosis}
+                onChange={(e) =>
+                  setNewRecord((p) => ({ ...p, diagnosis: e.target.value }))
+                }
                 required
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-2">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Mô tả"
-                value={newEvent.description}
-                onChange={(e) => setNewEvent((p) => ({ ...p, description: e.target.value }))}
-                required
+                placeholder="Điều trị"
+                value={newRecord.treatment}
+                onChange={(e) =>
+                  setNewRecord((p) => ({ ...p, treatment: e.target.value }))
+                }
               />
             </div>
-            <div className="col-md-2 text-end">
+            <div className="col-md-1 text-end">
               <button className="btn btn-success w-100" type="submit">
-                ➕ Thêm
+                ➕
               </button>
             </div>
           </form>
 
+          {/* Danh sách record */}
           <div className="row">
-            {timeline.map((item) => (
+            {records.map((item) => (
               <div key={item.id} className="col-md-4 mb-3">
                 <div className="card shadow-sm p-3 timeline-card fade-in-up">
-                  <span className="text-muted small">{item.date}</span>
-                  <h5 className="mt-2">{item.type}</h5>
-                  <p>{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Documents */}
-        {/* <section className="mb-5 fade-in">
-          <h3 className="mb-4 section-title">📂 Tài liệu y tế</h3>
-          <input
-            type="file"
-            multiple
-            accept=".jpg,.jpeg,.png,.pdf"
-            onChange={handleFileUpload}
-            className="form-control mb-3"
-          />
-          <div className="row">
-            {documents.map((doc) => (
-              <div key={doc.id} className="col-md-4 mb-3">
-                <div className="card shadow-sm fade-in-up doc-card">
-                  {doc.name.endsWith(".pdf") ? (
-                    <div className="p-3">
-                      <a href={doc.url} target="_blank" rel="noopener noreferrer">
-                        📄 {doc.name}
-                      </a>
-                    </div>
-                  ) : (
-                    <img
-                      src={doc.url}
-                      alt={doc.name}
-                      className="card-img-top"
-                      style={{ maxHeight: "200px", objectFit: "cover" }}
-                    />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* Insurance */}
-        <section className="fade-in">
-          <h3 className="mb-4 section-title">🛡️ Bảo hiểm thú cưng</h3>
-          <form className="row g-3 align-items-end mb-4" onSubmit={handleAddInsurance}>
-            <div className="col-md-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Công ty bảo hiểm"
-                value={newInsurance.provider}
-                onChange={(e) => setNewInsurance((p) => ({ ...p, provider: e.target.value }))}
-                required
-              />
-            </div>
-            <div className="col-md-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Số hợp đồng"
-                value={newInsurance.policyNumber}
-                onChange={(e) => setNewInsurance((p) => ({ ...p, policyNumber: e.target.value }))}
-                required
-              />
-            </div>
-            <div className="col-md-3">
-              <input
-                type="date"
-                className="form-control"
-                value={newInsurance.expiration}
-                onChange={(e) => setNewInsurance((p) => ({ ...p, expiration: e.target.value }))}
-                required
-              />
-            </div>
-            <div className="col-md-3 text-end">
-              <button className="btn btn-success w-100" type="submit">
-                ➕ Lưu
-              </button>
-            </div>
-          </form>
-
-          <div className="row">
-            {insurance.map((ins) => (
-              <div key={ins.id} className="col-md-4 mb-3">
-                <div className="card shadow-sm p-3 fade-in-up insurance-card">
-                  <h5>{ins.provider}</h5>
-                  <p>📑 {ins.policyNumber}</p>
-                  <p>⏳ Hết hạn: {ins.expiration}</p>
+                  <span className="text-muted small">{item.visit_date}</span>
+                  <h5 className="mt-2">{item.diagnosis}</h5>
+                  <p>{item.treatment || "Không có điều trị"}</p>
+                  <p className="small text-info">
+                    🐶 Pet: {item.pet?.name || item.pet_id}
+                  </p>
+                  <button
+                    className="btn btn-sm btn-danger mt-2"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    🗑️ Xoá
+                  </button>
                 </div>
               </div>
             ))}
