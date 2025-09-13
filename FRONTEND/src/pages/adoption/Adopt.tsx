@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AnimalCard from "../adoption/AnimalCard";
 import Pagination from "../adoption/Pagination";
 import { Animal } from "../adoption/type";
+import { Link } from "lucide-react";
 
 const Adopt: React.FC = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
