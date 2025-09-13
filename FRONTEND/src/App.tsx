@@ -34,7 +34,6 @@ import Events from "./pages/adoption/Event";
 import contact from "./pages/Contact";
 
 
-
 export default function App() {
   return (
     <div id="top">
@@ -72,15 +71,15 @@ export default function App() {
               element={<Appointments></Appointments>}
             ></Route>
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
-            {/* TODO: /profile, /contact, /adopt, ... */}
-            <Route path="adopt" element={<AnimalShelter />}>
-          <Route path="adopt" element={<Adopt />} />
-          <Route path="adopt/:id" element={<AdoptDetail />} />
-          <Route path="surrender" element={<Surrender />} />
-          <Route path="howtoadopt" element={<HowToAdopt />} />
+           
+  <Route path="/adopt" element={<AnimalShelter />}>
+    <Route path="adopt" element={<Adopt />} />
+    <Route path="adopt/:id" element={<AdoptDetail />} />
+    <Route path="surrender" element={<Surrender />} />
+    <Route path="howtoadopt" element={<HowToAdopt />} />
+  </Route> 
+</Routes>
 
-
-          </Routes>
         </main>
         <Footer />
       </AuthProvider>
