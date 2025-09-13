@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { Mail, Lock, LogIn } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const { user, login } = useAuth();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("owners");
+
   if (user) return <Navigate to="/" replace />;
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -19,7 +19,7 @@ export default function Login() {
     setErr(null);
     setLoading(true);
     try {
-      await login(email, password, name);
+      await login(email, password); // login từ AuthContext (mock)
       navigate("/", { replace: true });
     } catch (e: any) {
       setErr(e?.message || "Login failed");
@@ -34,26 +34,13 @@ export default function Login() {
         <div className="mx-auto max-w-md">
           <h1 className="text-3xl font-extrabold text-slate-900">Sign in</h1>
           <p className="mt-2 text-slate-600">
-            Use any email and password (demo). We’ll just remember your session
-            on this device.
+            Demo only: Use any email & password. We’ll just save session in localStorage.
           </p>
-          <form onSubmit={onSubmit} className="mt-8 space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700">
-                Name (optional)
-              </label>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-                placeholder="Your name"
-              />
-            </div>
 
+          <form onSubmit={onSubmit} className="mt-8 space-y-4">
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-slate-700">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-slate-700">Email</label>
               <div className="mt-1 flex items-center rounded-xl border border-slate-200 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
                 <span className="pl-3 pr-2 text-slate-400">
                   <Mail size={18} />
@@ -69,10 +56,9 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-slate-700">
-                Password
-              </label>
+              <label className="block text-sm font-medium text-slate-700">Password</label>
               <div className="mt-1 flex items-center rounded-xl border border-slate-200 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20">
                 <span className="pl-3 pr-2 text-slate-400">
                   <Lock size={18} />
@@ -95,17 +81,15 @@ export default function Login() {
               disabled={loading}
               className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
             >
-              <LogIn size={18} /> {loading ? "Signing in..." : "Sign in"}
+              <LogIn size={18} />
+              {loading ? "Signing in..." : "Sign in"}
             </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-black hover:bg-emerald-700 border border-dark"
-            >
-              Create new account
-            </button>
-            <p className="text-xs text-slate-500">
-              By signing in, you agree to our Terms and Privacy.
+
+            <p className="text-sm text-slate-600 text-center">
+              Don’t have an account?{" "}
+              <Link to="/register" className="text-emerald-700 hover:underline">
+                Register
+              </Link>
             </p>
           </form>
         </div>
