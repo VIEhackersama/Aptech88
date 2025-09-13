@@ -14,8 +14,10 @@ import PetHealt from "./pageone/HealthRecords";
 
 
 
+// import Contact from "./pages/adoption/Contact";
+import Contact from "./pages/Contact";
 
- import Contact from "./pages/Contact";
+
 
 
 import Donate from "./pages/Donate";
@@ -34,6 +36,7 @@ import Events from "./pages/adoption/Event";
 import contact from "./pages/Contact";
 
 
+
 export default function App() {
   return (
     <div id="top">
@@ -48,9 +51,13 @@ export default function App() {
 
             <Route path="/login" element={<Login />} />
 
-            <Route path="/veter" element={<VeterinariansPage />} />
+
+            <Route path="/veter" element={<Veterinarians />
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
+
+
+
 
 
 
@@ -62,7 +69,8 @@ export default function App() {
               element={<HealthRecordsPage />}
             />
 
-             <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<Contact />} />
+
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
 
@@ -79,6 +87,7 @@ export default function App() {
     <Route path="howtoadopt" element={<HowToAdopt />} />
   </Route> 
 </Routes>
+
 
         </main>
         <Footer />
