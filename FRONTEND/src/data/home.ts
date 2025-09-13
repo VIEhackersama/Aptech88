@@ -2,8 +2,8 @@
 import type { PetCard } from "../components/home/FeaturedPets";
 import type { TipItem } from "../components/home/CareTipsTeaser"; // ✅ đúng đường dẫn
 
-export const HERO_IMG = "/assets/home1.jpeg";
-export const CARD_IMG = "/assets/home1.jpeg";
+export const HERO_IMG ="https://nativespeaker.vn/uploaded/page_1600_1712215630_1713753920.jpg";
+export const CARD_IMG ="https://www.pngkit.com/png/detail/22-223560_png-puppy-paw-clipart-pet-door.png";
 
 export const FEATURED_PETS: PetCard[] = [
   { id: "1", name: "Bella", age: "2 years", sex: "Female", badge: "Vaccinated", img: CARD_IMG },
@@ -32,8 +32,8 @@ export const FAQS = [
 ];
 
 export const PARTNER_LOGOS = [
-  "/assets/bidv_logo.jpg",
-  "/assets/bidv_logo.jpg",
+  "https://w7.pngwing.com/pngs/502/150/png-transparent-havanese-dog-pet-sitting-labrador-retriever-puppy-cat-pet-dog-animals-carnivoran-pet-thumbnail.png",
+  "https://img.freepik.com/free-photo/pug-dog-isolated-white-background_2829-11416.jpg?semt=ais_hybrid&w=740&q=80",
   "/assets/bidv_logo.jpg",
   "/assets/bidv_logo.jpg",
   "/assets/bidv_logo.jpg",
