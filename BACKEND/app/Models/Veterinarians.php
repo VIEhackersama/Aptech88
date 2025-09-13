@@ -19,7 +19,7 @@ class Veterinarians extends Authenticatable
         'note',
         'img_url',
         'phonenumber'
-    ];
+    ];  
     protected $hidden = [
         'password_hash',
         'remember_token'
