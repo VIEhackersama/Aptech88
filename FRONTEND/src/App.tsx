@@ -52,15 +52,8 @@ export default function App() {
             <Route path="/login" element={<Login />} />
 
 
-            <Route path="/veter" element={<Veterinarians />
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
             <Route path="/veter/health-records" element={<HealthRecordsPage />} />
-
-
-
-
-
-
             <Route path="/veter" element={<VeterinariansPage />} />
 
             <Route path="/veter/appointments" element={<AppointmentsPage />} />
