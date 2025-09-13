@@ -16,15 +16,14 @@ export default function Home() {
       <Hero image={HERO_IMG} />
       <AudienceGrid />
       <FeaturedPets items={FEATURED_PETS} />
-      <CareTipsTeaser tips={TIPS} />
-      <ProductsShowcase products={PRODUCTS} />
+      {/* <CareTipsTeaser tips={TIPS} /> */}
       <DonateCta image={CARD_IMG} />
-      <section className="mt-20">
+      {/* <section className="mt-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">Trusted by partners</h2>
           <LogoCloud logos={PARTNER_LOGOS} />
         </div>
-      </section>
+      </section> */}
       <Faq items={FAQS} />
       <Newsletter />
     </div>

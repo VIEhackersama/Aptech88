@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer role="contentinfo" className="mt-20">
-      <div className="h-1 w-full" style={{ background: "linear-gradient(90deg,#047857 0%,#059669 50%,#10b981 100%)" }} />
+      <div className="h-1 w-full bg-[linear-gradient(90deg,#047857_0%,#059669_50%,#10b981_100%)]" />
       <div className="bg-white">
         <div className="mx-auto max-w-7xl px-4 md:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}

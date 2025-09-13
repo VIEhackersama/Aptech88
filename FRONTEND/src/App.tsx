@@ -27,17 +27,15 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/veter/appointments"
-              element={<AppointmentsPage />}
-            />
-            <Route
-              path="/veter/health-records"
-              element={<HealthRecordsPage />}
-            />
-            {/* <Route path="/contact" element={<Contact />} /> */}
+            <Route path="/veter" element={<Veterinarians />} />
+<Route path="/veter/appointments" element={<AppointmentsPage />} />
+<Route path="/veter/health-records" element={<HealthRecordsPage />} />
+           
+
+            <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/petowner" element={<PetOwners></PetOwners>}></Route>
+            <Route path="/petappointment" element={<Appointment></Appointment>}></Route>
             <Route path="/pethealth" element={<PetHealt></PetHealt>}></Route>
             {/* TODO: /profile, /contact, /adopt, ... */}
             <Route path="/animalshelter" element={<AnimalShelter></AnimalShelter>}></Route>
