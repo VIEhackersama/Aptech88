@@ -1,63 +1,35 @@
-
 import React, { useState } from "react";
+import axios from "axios";
+import ImageUploader from "./ImageUploader";
 
-const Surrender: React.FC = () => {
+export default function Surrender() {
+  const [image, setImage] = useState<string | null>(null);
   const [form, setForm] = useState({
-    pet_name: "",
+    name: "",
     species: "",
-    breed: "",
     age: "",
     gender: "",
-    img_url: "",
+    reason: "",
   });
-  const [message, setMessage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage(null);
 
     try {
-      const res = await fetch("http://localhost:8000/api/adoptlistings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Nếu backend có auth cần JWT thì thêm:
-          // "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ...form,
-          age: parseInt(form.age, 10),
-        }),
+      await axios.post("http://127.0.0.1:8000/api/surrender", {
+        ...form,
+        image,
       });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || "Failed to submit");
-      }
-
-      const data = await res.json();
-      setMessage(`Pet ${data.pet_name} submitted successfully!`);
-      setForm({
-        pet_name: "",
-        species: "",
-        breed: "",
-        age: "",
-        gender: "",
-        img_url: "",
-      });
-    } catch (err: any) {
-      setMessage(err.message);
-    } finally {
-      setLoading(false);
+      alert("Pet submitted successfully!");
+      setForm({ name: "", species: "", age: "", gender: "", reason: "" });
+      setImage(null);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit pet.");
     }
   };
 
@@ -67,71 +39,53 @@ const Surrender: React.FC = () => {
       <form className="space-y-4" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="pet_name"
-          value={form.pet_name}
+          name="name"
+          value={form.name}
           onChange={handleChange}
           placeholder="Pet Name"
           className="w-full border rounded p-2"
-          required
         />
         <input
           type="text"
           name="species"
           value={form.species}
           onChange={handleChange}
-          placeholder="Species (Dog, Cat, etc.)"
+          placeholder="Species"
           className="w-full border rounded p-2"
-          required
         />
         <input
           type="text"
-          name="breed"
-          value={form.breed}
-          onChange={handleChange}
-          placeholder="Breed"
-          className="w-full border rounded p-2"
-        />
-        <input
-          type="number"
           name="age"
           value={form.age}
           onChange={handleChange}
           placeholder="Age"
           className="w-full border rounded p-2"
-          required
         />
-        <select
+        <input
+          type="text"
           name="gender"
           value={form.gender}
           onChange={handleChange}
-          className="w-full border rounded p-2"
-          required
-        >
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <input
-          type="text"
-          name="img_url"
-          value={form.img_url}
-          onChange={handleChange}
-          placeholder="Image URL"
+          placeholder="Gender"
           className="w-full border rounded p-2"
         />
+        <textarea
+          name="reason"
+          value={form.reason}
+          onChange={handleChange}
+          placeholder="Reason for surrender"
+          className="w-full border rounded p-2"
+          rows={4}
+        ></textarea>
+        <ImageUploader onImageUpload={setImage} />
         <button
           type="submit"
-          disabled={loading}
-          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
         >
-          {loading ? "Submitting..." : "Submit"}
+          Submit
         </button>
       </form>
-      {message && <p className="text-sm text-gray-700 mt-2">{message}</p>}
+      {image && <p className="text-sm text-gray-500 mt-2">Image uploaded.</p>}
     </div>
   );
-};
-
-export default Surrender;
-
-
+}

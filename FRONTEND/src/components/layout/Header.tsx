@@ -35,22 +35,14 @@ export default function Header() {
     {
       name: "Animal shelters",
       path: "/adopt",
-      children: [
-        { name: "Adopt", path: "/adopt" },
-        { name: "Adopt Detail", path: "/adopt/detail" },
-        { name: "Animal Card", path: "/adopt/animal-card" },
-        { name: "Event", path: "/adopt/event" },
-        { name: "Uploader", path: "/adopt/im-uploader" },
-        { name: "Surrender", path: "/adopt/surrender" },
-      ],
+      children: [],
     },
     {
       name: "Veterinarians",
       path: "/veter",
-      children: [
-        { name: "Appointments", path: "/veter/appointments" },
-        { name: "Health records", path: "/veter/health-records" },
-      ],
+
+      children: [],
+
     },
     { name: "Contact", path: "/contact", children: [] },
   ];
@@ -66,26 +58,22 @@ export default function Header() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Topbar */}
-      <div
-        className="h-9 text-white text-xs md:text-sm"
-        style={{
-          background: `linear-gradient(90deg, ${GREEN.dark} 0%, ${GREEN.primary} 50%, ${GREEN.light} 100%)`,
-        }}
-      >
-        <div className="mx-auto max-w-7xl h-full px-4 md:px-6 flex items-center justify-between">
-          <div className="flex items-center gap-5 whitespace-nowrap overflow-x-auto no-scrollbar">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin size={15} /> Ha Noi — Viet Nam
-            </span>
-            <a href="mailto:hello@furshield.app" className="inline-flex items-center gap-1.5 hover:underline">
-              <Mail size={15} /> hello@furshield.app
-            </a>
-            <a href="tel:+84393201068" className="inline-flex items-center gap-1.5 hover:underline">
-              <Phone size={15} /> (+84) 39 320 1068
-            </a>
-          </div>
-        </div>
-      </div>
+     <div className="h-9 text-white text-xs md:text-sm bg-gradient-to-r from-emerald-900 via-emerald-600 to-emerald-400">
+  <div className="mx-auto max-w-7xl h-full px-4 md:px-6 flex items-center justify-between">
+    <div className="flex items-center gap-5 whitespace-nowrap overflow-x-auto no-scrollbar">
+      <span className="inline-flex items-center gap-1.5">
+        <MapPin size={15} /> Ha Noi — Viet Nam
+      </span>
+      <a href="mailto:hello@furshield.app" className="inline-flex items-center gap-1.5 hover:underline">
+        <Mail size={15} /> hello@furshield.app
+      </a>
+      <a href="tel:+84393201068" className="inline-flex items-center gap-1.5 hover:underline">
+        <Phone size={15} /> (+84) 39 320 1068
+      </a>
+    </div>
+  </div>
+</div>
+
 
       {/* Main header */}
       <div
