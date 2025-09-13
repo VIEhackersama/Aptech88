@@ -34,6 +34,7 @@ import Events from "./pages/adoption/Event";
 import contact from "./pages/Contact";
 
 
+
 export default function App() {
   return (
     <div id="top">
@@ -78,7 +79,7 @@ export default function App() {
           <Route path="surrender" element={<Surrender />} />
           <Route path="howtoadopt" element={<HowToAdopt />} />
 
-        </Route>
+
           </Routes>
         </main>
         <Footer />
