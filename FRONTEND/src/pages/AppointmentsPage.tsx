@@ -1,36 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { mockAppointments } from "../data/mockData";
+import axios from "axios";
 
 interface Appointment {
-  appt_id: string;
-  pet_id: string;
-  owner_id: string;
-  vet_id: string;
+  appt_id: number;
+  pet: {
+    name: string;
+  };
+  owner: {
+    name: string;
+  };
   appointment_time: string;
   status: string;
 }
 
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  // Load data từ API
   useEffect(() => {
-    setAppointments(mockAppointments);
+    const fetchAppointments = async () => {
+      try {
+        const res = await axios.get("/api/appointments", {
+          withCredentials: true, // nếu backend dùng session/cookie
+        });
+        setAppointments(res.data);
+      } catch (err) {
+        console.error("Error fetching appointments", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAppointments();
   }, []);
 
-  const handleEdit = (id: string) => {
-    alert(`Edit appointment ${id}`);
-  };
-
-  const handleDelete = (id: string) => {
-    if (window.confirm("Bạn có chắc muốn xóa?")) {
-      setAppointments((prev) => prev.filter((appt) => appt.appt_id !== id));
+  // Bác sĩ cập nhật trạng thái
+  const handleUpdateStatus = async (id: number, status: string) => {
+    try {
+      const res = await axios.put(`/api/appointments/${id}`, { status });
+      setAppointments((prev) =>
+        prev.map((appt) =>
+          appt.appt_id === id ? { ...appt, status: res.data.status } : appt
+        )
+      );
+    } catch (err) {
+      console.error("Error updating appointment", err);
     }
   };
+
+  if (loading) {
+    return <p className="p-6">Đang tải dữ liệu...</p>;
+  }
 
   return (
     <div className="w-full p-6">
       <h1 className="text-3xl font-bold mb-6 text-emerald-700">
-        📅 Appointments
+        📅 Appointments (Bác sĩ thú y)
       </h1>
       <div className="overflow-x-auto w-full rounded-2xl shadow-md border border-gray-200 bg-white">
         <table className="w-full text-sm text-left text-gray-700">
@@ -39,7 +64,6 @@ export default function AppointmentsPage() {
               <th className="px-6 py-3">ID</th>
               <th className="px-6 py-3">Pet</th>
               <th className="px-6 py-3">Owner</th>
-              <th className="px-6 py-3">Vet</th>
               <th className="px-6 py-3">Time</th>
               <th className="px-6 py-3">Status</th>
               <th className="px-6 py-3 text-center">Actions</th>
@@ -54,9 +78,8 @@ export default function AppointmentsPage() {
                 }`}
               >
                 <td className="px-6 py-3 font-medium">{appt.appt_id}</td>
-                <td className="px-6 py-3">{appt.pet_id}</td>
-                <td className="px-6 py-3">{appt.owner_id}</td>
-                <td className="px-6 py-3">{appt.vet_id}</td>
+                <td className="px-6 py-3">{appt.pet?.name || "N/A"}</td>
+                <td className="px-6 py-3">{appt.owner?.name || "N/A"}</td>
                 <td className="px-6 py-3">
                   {new Date(appt.appointment_time).toLocaleString()}
                 </td>
@@ -75,16 +98,28 @@ export default function AppointmentsPage() {
                 </td>
                 <td className="px-6 py-3 text-center space-x-2">
                   <button
-                    onClick={() => handleEdit(appt.appt_id)}
-                    className="px-3 py-1 rounded-lg bg-yellow-100 text-yellow-700 hover:bg-yellow-200"
+                    onClick={() =>
+                      handleUpdateStatus(appt.appt_id, "Scheduled")
+                    }
+                    className="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200"
                   >
-                    Edit
+                    Scheduled
                   </button>
                   <button
-                    onClick={() => handleDelete(appt.appt_id)}
+                    onClick={() =>
+                      handleUpdateStatus(appt.appt_id, "Completed")
+                    }
+                    className="px-3 py-1 rounded-lg bg-green-100 text-green-700 hover:bg-green-200"
+                  >
+                    Completed
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleUpdateStatus(appt.appt_id, "Cancelled")
+                    }
                     className="px-3 py-1 rounded-lg bg-red-100 text-red-700 hover:bg-red-200"
                   >
-                    Delete
+                    Cancelled
                   </button>
                 </td>
               </tr>

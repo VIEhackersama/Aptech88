@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PetOwners.css";
+import axios from "axios";
 
 interface Pet {
   id: number;
@@ -8,87 +9,66 @@ interface Pet {
   breed: string;
   age: number;
   gender: string;
-  image: string;
+  img_url?: string;
 }
 
 export default function PetOwners() {
   const [filter, setFilter] = useState<string>("All");
-  const [pets, setPets] = useState<Pet[]>([
-    {
-      id: 1,
-      name: "Milo",
-      species: "Dog",
-      breed: "Shiba Inu",
-      age: 3,
-      gender: "Khỏe mạnh, thích chạy nhảy",
-      image: "https://placedog.net/400/300?id=1",
-    },
-    {
-      id: 2,
-      name: "Luna",
-      species: "Cat",
-      breed: "Persian",
-      age: 2,
-      gender: "Cần chăm sóc dị ứng",
-      image: "https://placekitten.com/400/300",
-    },
-     {
-      id: 1,
-      name: "Milo",
-      species: "Dog",
-      breed: "Shiba Inu",
-      age: 3,
-      gender: "Khỏe mạnh, thích chạy nhảy",
-      image: "https://placedog.net/400/300?id=1",
-    },
-    {
-      id: 2,
-      name: "Luna",
-      species: "Cat",
-      breed: "Persian",
-      age: 2,
-      gender: "Cần chăm sóc dị ứng",
-      image: "https://placekitten.com/400/300",
-    },
-     {
-      id: 1,
-      name: "Milo",
-      species: "Dog",
-      breed: "Shiba Inu",
-      age: 3,
-      gender: "Khỏe mạnh, thích chạy nhảy",
-      image: "https://placedog.net/400/300?id=1",
-    },
-    {
-      id: 2,
-      name: "Luna",
-      species: "Cat",
-      breed: "Persian",
-      age: 2,
-      gender: "Cần chăm sóc dị ứng",
-      image: "https://placekitten.com/400/300",
-    },
-  ]);
-
+  const [pets, setPets] = useState<Pet[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [showForm, setShowForm] = useState<boolean>(false);
+
+  // Form không có id, Laravel sẽ tự gán
   const [formData, setFormData] = useState<Omit<Pet, "id">>({
     name: "",
     species: "",
     breed: "",
     age: 0,
     gender: "",
-    image: "",
+    img_url: "",
   });
+
+  // Lấy token từ localStorage (hoặc context tuỳ bạn login)
+  const token = localStorage.getItem("token");
+
+  const api = axios.create({
+    baseURL: "http://localhost:8000/api",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  // Lấy danh sách pets khi load trang
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        setLoading(true);
+        const res = await api.get<Pet[]>("/pets");
+        setPets(res.data);
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPets();
+  }, []);
 
   // Lọc thú cưng
   const filteredPets =
     filter === "All"
       ? pets
-      : pets.filter((pet) => pet.species.toLowerCase() === filter.toLowerCase());
+      : pets.filter(
+          (pet) => pet.species.toLowerCase() === filter.toLowerCase()
+        );
 
   // Xử lý nhập form
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -97,26 +77,25 @@ export default function PetOwners() {
     }));
   };
 
-  // Thêm thú cưng mới
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // Gửi form thêm thú cưng
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formattedSpecies =
-      formData.species.charAt(0).toUpperCase() +
-      formData.species.slice(1).toLowerCase();
-
-    const newPet: Pet = { id: Date.now(), ...formData, species: formattedSpecies };
-    setPets((prev) => [...prev, newPet]);
-
-    setFormData({
-      name: "",
-      species: "",
-      breed: "",
-      age: 0,
-      gender: "",
-      image: "",
-    });
-    setShowForm(false);
+    try {
+      const res = await api.post<Pet>("/pets", formData);
+      setPets((prev) => [...prev, res.data]); // cập nhật danh sách
+      setFormData({
+        name: "",
+        species: "",
+        breed: "",
+        age: 0,
+        gender: "",
+        img_url: "",
+      });
+      setShowForm(false);
+    } catch (err) {
+      console.error("Error adding pet:", err);
+    }
   };
 
   return (
@@ -175,35 +154,42 @@ export default function PetOwners() {
 
       {/* Danh sách thú cưng */}
       <section className="container my-5">
-        <div className="row">
-          {filteredPets.map((pet) => (
-            <div key={pet.id} className="col-md-4 mb-4">
-              <div className="card shadow-sm h-100">
-                <img
-                  src={pet.image}
-                  alt={pet.name}
-                  className="card-img-top"
-                  style={{ height: "200px", objectFit: "cover" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title text-success">{pet.name}</h5>
-                  <p className="card-text mb-1">
-                    <strong>Loài:</strong> {pet.species}
-                  </p>
-                  <p className="card-text mb-1">
-                    <strong>Giống:</strong> {pet.breed}
-                  </p>
-                  <p className="card-text mb-1">
-                    <strong>Tuổi:</strong> {pet.age}
-                  </p>
-                  <p className="card-text">
-                    <strong>Tiền sử:</strong> {pet.gender}
-                  </p>
+        {loading ? (
+          <p>Đang tải...</p>
+        ) : (
+          <div className="row">
+            {filteredPets.map((pet) => (
+              <div key={pet.id} className="col-md-4 mb-4">
+                <div className="card shadow-sm h-100">
+                  <img
+                    src={
+                      pet.img_url ||
+                      "https://cdn-icons-png.flaticon.com/512/616/616408.png"
+                    }
+                    alt={pet.name}
+                    className="card-img-top"
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title text-success">{pet.name}</h5>
+                    <p className="card-text mb-1">
+                      <strong>Loài:</strong> {pet.species}
+                    </p>
+                    <p className="card-text mb-1">
+                      <strong>Giống:</strong> {pet.breed}
+                    </p>
+                    <p className="card-text mb-1">
+                      <strong>Tuổi:</strong> {pet.age}
+                    </p>
+                    <p className="card-text">
+                      <strong>Tiền sử:</strong> {pet.gender}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Modal thêm/sửa thú cưng */}
@@ -257,9 +243,9 @@ export default function PetOwners() {
               />
               <input
                 type="text"
-                name="image"
+                name="img_url"
                 placeholder="Link ảnh"
-                value={formData.image}
+                value={formData.img_url}
                 onChange={handleChange}
                 className="form-control mb-3"
               />
