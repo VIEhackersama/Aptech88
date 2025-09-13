@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import AnimalCard from "./AnimalCard";
-import Pagination from "./Pagination";
 
-interface Animal {
-  id: number;
-  name: string;
-  species: string;
-  age: string;
-  gender: string;
-  breed?: string;
-  image?: string;
-}
+import React, { useState, useEffect } from "react";
+import AnimalCard from "../adoption/AnimalCard";
+import Pagination from "../adoption/Pagination";
+import { Animal } from "../adoption/type";
+import { Link } from "lucide-react";
 
 export default function Adopt() {
   const [animals, setAnimals] = useState<Animal[]>([]);
